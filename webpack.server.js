@@ -12,7 +12,7 @@ const optionsObj = {publicPath: '/', stats: {colors: true}};
 app.use(webpackDevMiddleware(compiler, optionsObj));
 app.use('/', express.static(staticDir));
 
-const port = 8080;
+const port = 8081;
 app.listen(port, err => {
   if (! err)
     console.log(`Development Server running on localhost:${port}`);
