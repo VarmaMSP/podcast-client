@@ -1,0 +1,22 @@
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: $navbar-height;
+  padding-top: 0.2rem;
+  border-bottom: 0.01rem solid darken(#F5F5F5, 10%);
+  background-color: $primary-color;
+
+  .logo {
+    display: inline-block;
+    width: 40%;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #b20000;
+    text-align: left;
+
+    sup {
+      font-size: 1rem;
+    }
+  }
+}
