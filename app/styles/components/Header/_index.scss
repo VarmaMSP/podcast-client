@@ -19,4 +19,21 @@ header {
       font-size: 1rem;
     }
   }
+
+  .search {
+    display: block;
+    float: right;
+    width: 60%;
+    padding-top: 0.2rem;
+
+    input[type="text"] {
+      width: 100%;
+      height: 2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      border: 1px solid darken(#DCDCDC, 20%);
+      background-color: lighten($primary-color, 5%);
+      font-size: 1rem;
+    }
+  }
 }
