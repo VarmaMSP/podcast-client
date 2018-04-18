@@ -1,14 +1,13 @@
 // @flow
 import React from 'react';
 
+import Logo from './Logo';
 import Search from './Search';
 
 const Header = () => (
   <header>
     <div className='container'>
-      <div className='logo'>
-        Phenopod<sup> β</sup>
-      </div>
+      <Logo/>
       <Search/>
     </div>
   </header>
