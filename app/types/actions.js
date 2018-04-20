@@ -1,7 +1,7 @@
 // @flow
 import type {Podcast, Episode} from './podcast';
 
-export type PodcastAction = SelectEpisodeAction
+export type PodcastAction = SelectPodcastAction
 export type NowPlayingAction = SelectEpisodeAction
 
 export type SelectPodcastAction = {|
