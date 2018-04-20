@@ -25,22 +25,22 @@ footer {
     }
   }
 
-  // ANIMATION CONTROLS
+  // CONTROLS
   .controls {
     float: right;
+    margin-top: 18px;
+
     img {
       width: 45px;
       opacity: 0.65;
-      margin-top: 9px;
       transition: $trans-time;
     }
   }
 
-  // PLAYER 
+  // PLAYER
   .player {
     padding-top: 2px;
     padding-left: $img-height + 20px;
-    padding-right: 90px;
     transition: $trans-time;
 
     .details {
@@ -66,15 +66,44 @@ footer {
           opacity: 0.55;
         }
       }
+      .podcast-title {
+        margin-top: -5px;
+        font-size: 1rem;
+        font-weight: 600;
+        opacity: 0.55;
+      }
     }
-    .podcast-title {
-      margin-top: -5px;
-      font-size: 1rem;
-      font-weight: 600;
-      opacity: 0.55;
-    }
+    //AUDIO PLAYER
     .audio {
+      display: flex;
+      clear: right;
       opacity: 0;
+      transition: $trans-time + 0.2s;
+      width: 100%;
+      margin-top: 25px;
+      margin-left: -10px;
+
+      #play-icon {
+        opacity: 0.65;
+      }
+      #playback-slider {
+        width: 63%;
+      }
+      #time {
+        margin: 16px 10px;
+        font-size: 1rem;
+        font-weight: 500;
+        opacity: 0.5;
+      }
+      #volume-icon {
+        width: 30px;
+        height: 30px;
+        margin: 10px 2px;
+        opacity: 0.5;
+      }
+      #volume-slider {
+        width: 10%;
+      }
     }
   }
 }
@@ -89,11 +118,14 @@ footer:hover {
   }
 
   .controls {
-    #play { opacity: 0;}
+    #play { opacity: 0 }
     #arrow { transform: rotate(180deg); }
   }
 
   .player {
     padding-left: $img-height-a + 20px;
+    .audio {
+      opacity: 1;
+    }
   }
 }

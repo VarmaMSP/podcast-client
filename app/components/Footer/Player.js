@@ -125,11 +125,13 @@ export default class Audio extends Component<Props, State> {
     let { podcastTitle, episode } = this.props;
     let { title, date } = episode;
 
+    let playIconSrc = status === 'PLAY' ? '/img/pause.png' : '/img/play.png';
+
     return (
       <div>
         {/* CONTROLS */}
         <div className='controls'>
-          <img src='/img/play.png' id='play'/>
+          <img src={playIconSrc} onClick={this.handleToggle.bind(this)} id='play'/>
           <img src='/img/arrow.png' id='arrow'/>
         </div>
 
@@ -145,11 +147,32 @@ export default class Audio extends Component<Props, State> {
             <div className='podcast-title'>{podcastTitle}</div>
           </div>
 
-          {/* PLAYER */}
+          {/* AUDIO COMPONENT */}
           <div className='audio'>
+            <img src={playIconSrc} onClick={this.handleToggle.bind(this)} id='play-icon'/>
+            <input type='range' id='playback-slider'
+              min='0' max={Math.round(duration).toString()}
+              step='5' value={Math.round(currentTime).toString()}
+              onChange={this.handleSeek.bind(this)}
+            />
+            <span id='time'>{`${formatTime(currentTime)} / ${formatTime(duration)}`}</span>
+            <img src='/img/volume.png' id='volume-icon'/>
+            <input type='range' id='volume-slider'
+              min='0' max='100'
+              step='5'
+              onChange={this.handleVolumeChange.bind(this)}
+            />
           </div>
         </div>
       </div>
     )
   }
+}
+
+function formatTime(timeInSec: ?number): string {
+  if (! timeInSec) return '00:00:00';
+  let formattedTime = new Date(0, 0, 0, 0, 0, timeInSec)
+    .toTimeString()
+    .match(/\d{2}:\d{2}:\d{2}/);
+  return formattedTime ? formattedTime[0] : '00:00:00';
 }
