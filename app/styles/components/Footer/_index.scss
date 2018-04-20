@@ -1,0 +1,99 @@
+$footer-height: 75px;
+$img-height: $footer-height;
+$trans-time: 0.5s;
+
+//after animation
+$footer-height-a: 200px;
+$img-height-a: 180px;
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $footer-height;
+  background-color: $primary-color;
+  border-top: $border;
+  transition: $trans-time;
+
+  // ALBUM ART
+  .album-art {
+    float: left;
+    img {
+      height: $img-height;
+      transition: $trans-time;
+    }
+  }
+
+  // ANIMATION CONTROLS
+  .controls {
+    float: right;
+    img {
+      width: 45px;
+      opacity: 0.65;
+      margin-top: 9px;
+      transition: $trans-time;
+    }
+  }
+
+  // PLAYER 
+  .player {
+    padding-top: 2px;
+    padding-left: $img-height + 20px;
+    padding-right: 90px;
+    transition: $trans-time;
+
+    .details {
+      .now-playing {
+        font-weight: 800;
+        opacity: 0.4;
+      }
+      .episode {
+        margin-top: -2px;
+        .title {
+          font-size: 1.1rem;
+          font-weight: 700;
+          opacity: 0.75;
+        }
+        .dot {
+          font-size: 2rem;
+          vertical-align: middle;
+          opacity: 0.6;
+        }
+        .date {
+          font-size: 1rem;
+          font-weight: 600;
+          opacity: 0.55;
+        }
+      }
+    }
+    .podcast-title {
+      margin-top: -5px;
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0.55;
+    }
+    .audio {
+      opacity: 0;
+    }
+  }
+}
+
+footer:hover {
+  height: $footer-height-a;
+  padding-top: ($footer-height-a - $img-height-a) / 2;
+
+  .album-art img {
+    height: $img-height-a;
+    box-shadow: $img-box-shadow;
+  }
+
+  .controls {
+    #play { opacity: 0;}
+    #arrow { transform: rotate(180deg); }
+  }
+
+  .player {
+    padding-left: $img-height-a + 20px;
+  }
+}
