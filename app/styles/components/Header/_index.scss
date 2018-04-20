@@ -4,7 +4,7 @@ header {
   width: 100%;
   height: $navbar-height;
   padding-top: 0.2rem;
-  border-bottom: 0.01rem solid darken(#F5F5F5, 10%);
+  border-bottom: $border;
   background-color: $primary-color;
 
   .logo {
