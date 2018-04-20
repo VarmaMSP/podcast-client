@@ -4,35 +4,28 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Albumart from './Albumart';
+import Player from './Player';
 
 type Props = {
   podcast: ?Podcast,
   episode: ?Episode
 };
 
-class Footer extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    let { podcast, episode } = this.props;
-    return (
-      <div className='footer'>
-        <div className='container'>
-          { podcast && episode
-          ? (
-              <div>
-                <Albumart src={podcast.imageUrl}/>
-              </div>
-            )
-          : undefined
-          }
-        </div>
-      </div>
-    )
-  }
-};
+const Footer = ({ podcast, episode }: Props) => (
+  <footer>
+    <div className='container'>
+      { podcast && episode
+      ? (
+          <div>
+            <Albumart src={podcast.imageUrl}/>
+            <Player podcastTitle={podcast.title} episode={episode}/>
+          </div>
+        )
+      : undefined
+      }
+    </div>
+  </footer>
+);
 
 const mapStatetoProps = ({ nowPlaying }) => (
   nowPlaying
