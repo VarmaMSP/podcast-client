@@ -17,7 +17,7 @@ type NowPlayingState = {
   podcast: Podcast
 };
 
-const nowPlayingReducer = (state: ?NowPlayingState, action: NowPlayingAction): ?NowPlayingState => {
+const nowPlayingReducer = (state: ?NowPlayingState = null, action: NowPlayingAction): ?NowPlayingState => {
   switch(action.type) {
     case 'SELECT_EPISODE':
       return action.data;
