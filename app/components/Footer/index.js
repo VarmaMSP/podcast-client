@@ -16,12 +16,10 @@ const Footer = ({ podcast, episode }: Props) => (
   <footer>
     <div className='container'>
       { podcast && episode
-      ? (
-          <div>
-            <Albumart src={podcast.imageUrl}/>
-            <Player podcastTitle={podcast.title} episode={episode}/>
-          </div>
-        )
+      ? <div>
+          <Albumart src={podcast.imageUrl}/>
+          <Player podcastTitle={podcast.title} episode={episode}/>
+        </div>
       : undefined
       }
     </div>
