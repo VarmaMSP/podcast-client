@@ -1,4 +1,5 @@
 // @flow
+import type {State} from '../../types/index';
 import type {Podcast, Episode} from '../../types/podcast';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -27,7 +28,7 @@ const Footer = ({ podcast, episode }: Props) => (
   </footer>
 );
 
-const mapStatetoProps = ({ nowPlaying }) => (
+const mapStatetoProps = ({ nowPlaying }: State) => (
   nowPlaying
     ? nowPlaying
     : { podcast: null, episode: null }
