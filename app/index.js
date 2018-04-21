@@ -33,6 +33,7 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <Header/>
+      <input type='checkbox' style={{display: 'none'}} id='footer-state'/>
       <Footer/>
     </div>
   </Provider>,
