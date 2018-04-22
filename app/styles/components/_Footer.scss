@@ -33,6 +33,7 @@ footer {
       width: 45px;
       opacity: 0.65;
       transition: $trans-time;
+      cursor: pointer;
     }
   }
 
@@ -85,6 +86,7 @@ footer {
 
       #play-icon {
         opacity: 0.65;
+        cursor: pointer;
       }
       #playback-slider {
         width: 63%;
@@ -118,7 +120,7 @@ footer {
       box-shadow: $img-box-shadow;
     }
     .controls {
-      #play { opacity: 0 }
+      #play { opacity: 0; width: 0; height: 0; }
       #arrow { transform: rotate(180deg); }
     }
     .player {

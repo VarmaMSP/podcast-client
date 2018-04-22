@@ -59,7 +59,9 @@ export default class Audio extends Component<Props, State> {
       this.setState({status: 'PLAY'});
     });
     // Keyboard events
-    window.addEventListener('keydown', ({ keyCode }) => {
+    window.addEventListener('keydown', e => {
+      e.preventDefault();
+      let { keyCode } = e;
       let { status } = this.state;
       switch (keyCode) {
         case 32: {
