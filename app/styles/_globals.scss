@@ -28,3 +28,8 @@ input[type='text']:focus {
     width: 100%;
   }
 }
+
+.main-content {
+  padding-top: $header-height;
+  padding-bottom: $footer-height;
+};
