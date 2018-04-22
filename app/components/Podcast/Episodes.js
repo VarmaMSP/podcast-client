@@ -11,7 +11,8 @@ type Props = {|
 type State = {|
   loading: boolean,
   error: boolean,
-  episodes: Array<Episode>
+  episodes: Array<Episode>,
+  descId: ?number
 |};
 
 export default class Episodes extends Component<Props, State> {
@@ -21,7 +22,8 @@ export default class Episodes extends Component<Props, State> {
     this.state = {
       loading: true,
       error: false,
-      episodes: []
+      episodes: [],
+      descId: undefined
     };
   }
 
@@ -40,6 +42,13 @@ export default class Episodes extends Component<Props, State> {
       }));
   }
 
+  handleDescToggle(id: number) {
+    let { descId } = this.state;
+    return (e: SyntheticEvent<HTMLElement>) => {
+      this.setState({descId: descId !== id ? id : undefined});
+    }
+  }
+
   componentWillReceiveProps(nextProps: Props) {
     let { podcast } = nextProps;
     this.setState({ loading: true, error: false, episodes: [] });
@@ -53,30 +62,35 @@ export default class Episodes extends Component<Props, State> {
 
   render() {
     let { podcast } = this.props;
-    let { episodes, loading, error } = this.state;
+    let { episodes, loading, error, descId } = this.state;
+    let onSelect = () => null;
+    let onDescToggle = this.handleDescToggle.bind(this);
+    console.log(descId);
     return (
       <div className='episodes'>
         { loading
         ? <div className='loader'></div>
         : error
           ? <div className='error'>Error Fetching Podcasts.</div>
-          : episodes.map(renderEpisode(() => null))
+          : episodes.map(renderEpisode(onSelect, this.handleDescToggle.bind(this), descId))
         }
       </div>
     );
   }
 }
 
-const renderEpisode = (onSelect) => (episode: Episode, i: number) => (
+const renderEpisode = (onSelect, onDescToggle, descId) => (episode: Episode, i: number) => (
   <div className={'episode ' + (i % 2 ? 'dark' : 'light')} key={i}>
     <img className='play-icon' src='/img/play-circle.png'/>
     <div className='title'>{episode.title}</div>
     <div className='meta'>
       <span className='date'>{episode.date}</span>
       <span className='dot'> • </span>
-      <label className='desc-toggle'>Show Description</label>
+      <span className='desc-toggle' onClick={onDescToggle(i)}>
+        { descId === i ? 'Hide description' : 'Show description' }
+      </span>
     </div>
-    <div className='description'
+    <div className={`description ${descId === i ? 'show' : ''}`}
       dangerouslySetInnerHTML={{__html: episode.description}}
     />
   </div>

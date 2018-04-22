@@ -47,7 +47,7 @@ ReactDOM.render(
       </div>
       {/* FOOTER */}
       <input type='checkbox' style={{display: 'none'}} id='footer-state'/>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   </Provider>,
   (document.getElementById('app'): any)
