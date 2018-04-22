@@ -8,9 +8,15 @@ import {Provider} from 'react-redux';
 import reducers from './reducers';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Podcast from './components/Podcast';
 
 const initState: State = {
-  podcast: null,
+  podcast: {
+    title: "Waking Up with Sam Harris",
+    artist: "Sam Harris",
+    imageUrl: "https://is3-ssl.mzstatic.com/image/thumb/Music128/v4/4f/df/51/4fdf5122-5b7d-1fa2-b04e-9ff6317aff27/source",
+    feedUrl: "http://wakingup.libsyn.com/rss"
+  },
   nowPlaying: {
     podcast: {
       title: "Waking Up with Sam Harris",
@@ -32,7 +38,13 @@ const store: Store = createStore(reducers, initState);
 ReactDOM.render(
   <Provider store={store}>
     <div>
+      {/* HEADER */}
       <Header/>
+      {/* MAIN CONTENT*/}
+      <div className='main-content'>
+        <Podcast/>
+      </div>
+      {/* FOOTER */}
       <input type='checkbox' style={{display: 'none'}} id='footer-state'/>
       <Footer/>
     </div>
