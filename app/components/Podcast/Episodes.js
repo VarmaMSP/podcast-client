@@ -54,7 +54,6 @@ export default class Episodes extends Component<Props, State> {
   render() {
     let { podcast } = this.props;
     let { episodes, loading, error } = this.state;
-
     return (
       <div className='episodes'>
         { loading
@@ -70,12 +69,15 @@ export default class Episodes extends Component<Props, State> {
 
 const renderEpisode = (onSelect) => (episode: Episode, i: number) => (
   <div className={'episode ' + (i % 2 ? 'dark' : 'light')} key={i}>
-    <div className='episode-controls'>
-      <div className='play-icon'><img src='/img/play-circle.png'/></div>
-      <div className='episode-date'>{episode.date}</div>
+    <img className='play-icon' src='/img/play-circle.png'/>
+    <div className='title'>{episode.title}</div>
+    <div className='meta'>
+      <span className='date'>{episode.date}</span>
+      <span className='dot'> • </span>
+      <label className='desc-toggle'>Show Description</label>
     </div>
-    <div className='episode-details'>
-      <div className='title'>{episode.title}</div>
-    </div>
+    <div className='description'
+      dangerouslySetInnerHTML={{__html: episode.description}}
+    />
   </div>
 );

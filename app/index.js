@@ -27,6 +27,7 @@ const initState: State = {
     episode: {
       title: "#123  Identity & Honesty",
       date: "9 April, 2018",
+      description: '',
       link: "http://traffic.libsyn.com/wakingup/Waking_Up_123_Klein.mp3?dest-id=480596",
       fileType: "audio/mpeg"
     }
@@ -46,7 +47,7 @@ ReactDOM.render(
       </div>
       {/* FOOTER */}
       <input type='checkbox' style={{display: 'none'}} id='footer-state'/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   </Provider>,
   (document.getElementById('app'): any)
