@@ -10,10 +10,6 @@ type ReqOpts = {|
   headers?: Object
 |};
 
-function stripNonUTF8 (str: string): string {
-  return str.replace(/[\u0800-\uFFFF]/g, '');
-}
-
 export default function fetchEpisodes(reqOpts: ReqOpts): Promise<Array<Episode>> {
   reqOpts.url = 'http://cors-anywhere.herokuapp.com/' + reqOpts.url;
   return new Promise((resolve, reject) => {
@@ -31,10 +27,11 @@ export default function fetchEpisodes(reqOpts: ReqOpts): Promise<Array<Episode>>
         while(item = parser.read()) {
           try {
             let episode: Episode = {
-              title    : stripNonUTF8(item.title),
-              date     : item.date,
-              link     : item.enclosures[0].url,
-              fileType : item.enclosures[0].type
+              title       : stripNonUTF8(item.title),
+              description : stripNonUTF8(item.description),
+              date        : formatDate(item.date),
+              link        : item.enclosures[0].url,
+              fileType    : item.enclosures[0].type,
             };
             episodes.push(episode);
           } catch(e) {
@@ -44,4 +41,16 @@ export default function fetchEpisodes(reqOpts: ReqOpts): Promise<Array<Episode>>
       })
       .on('end', () => resolve(episodes));
   })
+}
+
+function stripNonUTF8 (str: string): string {
+  return str.replace(/[\u0800-\uFFFF]/g, '');
+}
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+export const formatDate = (dateString: string): string => {
+  let date = new Date(dateString);
+  return date
+    ? `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`
+    : ''
 }

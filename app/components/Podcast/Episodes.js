@@ -3,7 +3,6 @@ import type {Podcast, Episode} from '../../types/podcast';
 
 import React, {Component} from 'react';
 import fetchEpisodes from '../../api/rssFeed';
-import {formatDate} from '../utils';
 
 type Props = {|
   podcast: Podcast
@@ -73,7 +72,7 @@ const renderEpisode = (onSelect) => (episode: Episode, i: number) => (
   <div className={'episode ' + (i % 2 ? 'dark' : 'light')} key={i}>
     <div className='episode-controls'>
       <div className='play-icon'><img src='/img/play-circle.png'/></div>
-      <div className='episode-date'>{formatDate(episode.date)}</div>
+      <div className='episode-date'>{episode.date}</div>
     </div>
     <div className='episode-details'>
       <div className='title'>{episode.title}</div>

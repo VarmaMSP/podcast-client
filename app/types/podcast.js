@@ -8,6 +8,7 @@ export type Podcast = {|
 
 export type Episode = {|
   title: string,
+  description: string,
   date: string,
   link: string,
   fileType: string
