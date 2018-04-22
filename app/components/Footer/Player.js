@@ -135,7 +135,7 @@ export default class Audio extends Component<Props, State> {
         {/* CONTROLS */}
         <div className='controls'>
           <img src={playIconSrc} onClick={this.handleToggle.bind(this)} id='play'/>
-          <label for='footer-state'><img src='/img/arrow.png' id='arrow'/></label>
+          <label htmlFor='footer-state'><img src='/img/arrow.png' id='arrow'/></label>
         </div>
 
         <div className='player'>
