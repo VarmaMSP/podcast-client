@@ -41,7 +41,7 @@ ReactDOM.render(
       {/* HEADER */}
       <Header/>
       {/* MAIN CONTENT*/}
-      <div className='main-content'>
+      <div className='main-content container'>
         <Podcast/>
       </div>
       {/* FOOTER */}
