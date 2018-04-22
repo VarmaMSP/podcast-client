@@ -24,6 +24,9 @@
     height: 83vh;
     overflow: scroll;
 
+    .loader {
+      @include loader(relative, 5rem, 0.5rem, darken($primary-color, 30%));
+    }
     .episode {
       height: 100px;
       padding: 10px;
