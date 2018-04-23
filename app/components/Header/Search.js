@@ -1,14 +1,20 @@
 // @flow
+import type {RouterHistory} from 'react-router-dom';
 import React, {Component} from 'react';
+import {withRouter} from 'react-router';
+
+type Props = {
+  history: RouterHistory
+};
 
 type State = {
   searchTerm: string
 };
 
-export default class Search extends Component<{}, State> {
+class Search extends Component<Props, State> {
   constructor() {
     super();
-    this.state = { searchTerm: "" };
+    this.state = { searchTerm: '' };
   }
 
   handleSearchTermChange(e: SyntheticInputEvent<HTMLInputElement>) {
@@ -19,8 +25,12 @@ export default class Search extends Component<{}, State> {
 
   handleSearchTermSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    let { searchTerm } = this.state;
-    console.log(searchTerm);
+    let searchTerm = this.state.searchTerm.trim();
+    if (searchTerm) {
+      let { history } = this.props;
+      history.push(`/search/${searchTerm}`);
+      this.setState({ searchTerm: ''});
+    }
   }
 
   render() {
@@ -41,3 +51,5 @@ export default class Search extends Component<{}, State> {
     );
   }
 }
+
+export default withRouter(Search);

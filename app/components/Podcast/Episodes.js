@@ -1,11 +1,16 @@
 // @flow
 import type {Podcast, Episode} from '../../types/podcast';
+import type {Dispatch, Action} from '../../types/index';
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import fetchEpisodes from '../../api/rssFeed';
+import {selectEpisode} from '../../actions/index';
 
 type Props = {|
-  podcast: Podcast
+  podcast: Podcast,
+  playEpisode: (Podcast, Episode) => Action
 |};
 
 type State = {|
@@ -15,7 +20,7 @@ type State = {|
   descId: ?number
 |};
 
-export default class Episodes extends Component<Props, State> {
+class Episodes extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     console.log(props.podcast);
@@ -43,10 +48,19 @@ export default class Episodes extends Component<Props, State> {
   }
 
   handleDescToggle(id: number) {
-    let { descId } = this.state;
     return (e: SyntheticEvent<HTMLElement>) => {
+      let { descId } = this.state;
       this.setState({descId: descId !== id ? id : undefined});
-    }
+    };
+  }
+
+  handleEpisodePlay(podcast: Podcast) {
+    return (episode: Episode) => {
+      return (e: SyntheticEvent<HTMLElement>) => {
+        let { playEpisode } = this.props;
+        playEpisode(podcast, episode);
+      };
+    };
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -63,25 +77,24 @@ export default class Episodes extends Component<Props, State> {
   render() {
     let { podcast } = this.props;
     let { episodes, loading, error, descId } = this.state;
-    let onSelect = () => null;
+    let onPlay = this.handleEpisodePlay(podcast).bind(this);
     let onDescToggle = this.handleDescToggle.bind(this);
-    console.log(descId);
     return (
       <div className='episodes'>
         { loading
         ? <div className='loader'></div>
         : error
           ? <div className='error'>Error Fetching Podcasts.</div>
-          : episodes.map(renderEpisode(onSelect, this.handleDescToggle.bind(this), descId))
+          : episodes.map(renderEpisode(onPlay, onDescToggle, descId))
         }
       </div>
     );
   }
 }
 
-const renderEpisode = (onSelect, onDescToggle, descId) => (episode: Episode, i: number) => (
+const renderEpisode = (onPlay, onDescToggle, descId) => (episode: Episode, i: number) => (
   <div className={'episode ' + (i % 2 ? 'dark' : 'light')} key={i}>
-    <img className='play-icon' src='/img/play-circle.png'/>
+    <img className='play-icon' src='/img/play-circle.png' onClick={onPlay(episode)}/>
     <div className='title'>{episode.title}</div>
     <div className='meta'>
       <span className='date'>{episode.date}</span>
@@ -95,3 +108,9 @@ const renderEpisode = (onSelect, onDescToggle, descId) => (episode: Episode, i: 
     />
   </div>
 );
+
+const mapDispatchtoProps = (dispatch: Dispatch) => ({
+  playEpisode: (p: Podcast, e: Episode) => dispatch(selectEpisode(p, e))
+});
+
+export default connect(null, mapDispatchtoProps)(Episodes);
