@@ -97,6 +97,10 @@
         font-weight: 500;
         transition: 0.3s;
 
+        a {
+          font-style: italic;
+          text-decoration: underline;
+        }
         &.show {
           height: 10rem;
         }
@@ -104,9 +108,11 @@
 
       &.light {
         background-color: lighten($bg-color, 1%);
+        transition: 0.3s;
       }
       &.dark {
         background-color: $bg-color;
+        transition: 0.3s;
       }
       &:hover {
         background-color: darken($bg-color, 2%);
