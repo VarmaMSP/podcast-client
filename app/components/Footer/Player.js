@@ -130,14 +130,14 @@ export default class Audio extends Component<Props, State> {
     let { podcastTitle, episode } = this.props;
     let { title, date } = episode;
 
-    let playIconSrc = status === 'PLAY' ? 'img/pause.png' : 'img/play.png';
+    let playIconSrc = status === 'PLAY' ? '/img/pause.png' : '/img/play.png';
 
     return (
       <div className={status === 'LOAD' ? 'overlay' : ''}>
         {/* CONTROLS */}
         <div className='controls'>
           <img src={playIconSrc} onClick={this.handleToggle.bind(this)} id='play'/>
-          <label htmlFor='footer-state'><img src='img/arrow.png' id='arrow'/></label>
+          <label htmlFor='footer-state'><img src='/img/arrow.png' id='arrow'/></label>
         </div>
 
         <div className='player'>
@@ -161,7 +161,7 @@ export default class Audio extends Component<Props, State> {
               onChange={this.handleSeek.bind(this)}
             />
             <span id='time'>{`${formatTime(currentTime)} / ${formatTime(duration)}`}</span>
-            <img src='img/volume.png' id='volume-icon'/>
+            <img src='/img/volume.png' id='volume-icon'/>
             <input type='range' id='volume-slider'
               min='0' max='1'
               step='0.1' value={volume}
