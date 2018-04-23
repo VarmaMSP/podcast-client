@@ -15,7 +15,7 @@ $result-height: 20rem;
   .result {
     width: $result-width;
     height: $result-height;
-    background-color: lighten($bg-color, 3%);
+    background-color: darken($bg-color, 3%);
     box-shadow: 0px 0px 1px 0px rgba(150,136,139,1);
     transition: 0.3s;
     cursor: pointer;
@@ -23,6 +23,7 @@ $result-height: 20rem;
     .podcast-image {
       height: $result-width;
       width: $result-width;
+      border-bottom: $border;
     }
     .title {
       height: 4rem;
