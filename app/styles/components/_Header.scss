@@ -6,7 +6,9 @@ header {
   padding-top: 0.2rem;
   border-bottom: $border;
   background-color: $primary-color;
+  z-index: 10000;
 
+  // SITE LOGO
   .logo {
     display: inline-block;
     width: 40%;
@@ -19,7 +21,7 @@ header {
       font-size: 1rem;
     }
   }
-
+  // SEARCH INPUT
   .search {
     display: block;
     float: right;

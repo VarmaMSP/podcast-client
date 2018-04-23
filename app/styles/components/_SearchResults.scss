@@ -1,0 +1,53 @@
+$result-width: 12rem;
+$result-height: 20rem;
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, $result-width);
+  grid-auto-rows: $result-height;
+  grid-gap: 1rem 1.7rem;
+  padding: 1rem 0;
+
+  .loader {
+    @include loader(fixed, 6.5rem, 0.8rem);
+  }
+
+  .result {
+    width: $result-width;
+    height: $result-height;
+    background-color: lighten($bg-color, 3%);
+    box-shadow: 0px 0px 1px 0px rgba(150,136,139,1);
+    transition: 0.3s;
+    cursor: pointer;
+
+    .podcast-image {
+      height: $result-width;
+      width: $result-width;
+    }
+    .title {
+      height: 4rem;
+      line-height: 1.1rem;
+      padding: 0.8rem 0.8rem 0.8rem 0.8rem;
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+      font-weight: 800;
+      opacity: 0.7;
+    }
+    .artist {
+      height: 3.2rem;
+      line-height: 1.1rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+    .title, .artist {
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &:hover {
+      box-shadow: 0px 0px 5px 0px rgba(150,136,139,1);
+    }
+  }
+}

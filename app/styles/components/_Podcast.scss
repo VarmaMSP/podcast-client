@@ -7,14 +7,12 @@
     width: 30%;
     padding-right: 10px;
 
-    // PODCAST IMAGE
     img {
       width: 90%;
       height: auto;
       margin: 0 5%;
       box-shadow: $img-box-shadow;
     }
-    // PODCAST TITLE
     .title {
       margin-top: 1rem;
       font-size: 1.5rem;
@@ -30,16 +28,14 @@
     height: 83vh;
     overflow: scroll;
 
-    // LOADER
     .loader {
       @include loader(relative, 5rem, 0.5rem, darken($primary-color, 20%));
     }
-    // EPISODE
+    // INDIVIDUAL EPISODE
     .episode {
       padding: 5px;
       border-bottom: $border;
 
-      // EPISODE PLAY ICON
       .play-icon {
         float: right;
         width: 45px;
@@ -100,6 +96,10 @@
         a {
           font-style: italic;
           text-decoration: underline;
+        }
+        img {
+          width: 20%;
+          margin: 0 auto;
         }
         &.show {
           height: 10rem;

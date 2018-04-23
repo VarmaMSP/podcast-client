@@ -14,6 +14,7 @@ footer {
   background-color: $primary-color;
   border-top: $border;
   transition: $trans-time;
+  z-index: 10000;
 
   // ALBUM ART
   .album-art {
