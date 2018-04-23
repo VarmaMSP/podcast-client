@@ -17,6 +17,7 @@ type State = {|
   loading: boolean,
   error: boolean,
   episodes: Array<Episode>,
+  count: number,
   descId: ?number
 |};
 
@@ -28,6 +29,7 @@ class Episodes extends Component<Props, State> {
       loading: true,
       error: false,
       episodes: [],
+      count: 10,
       descId: undefined
     };
   }
@@ -43,6 +45,7 @@ class Episodes extends Component<Props, State> {
         episodes
       }))
       .catch(() => this.setState({
+        loading: false,
         error: true
       }));
   }
@@ -63,6 +66,11 @@ class Episodes extends Component<Props, State> {
     };
   }
 
+  handleLoadMore(e: SyntheticEvent<HTMLElement>) {
+    let { count } = this.state;
+    this.setState({ count: count + 10 });
+  }
+
   componentWillReceiveProps(nextProps: Props) {
     let { podcast } = nextProps;
     this.setState({ loading: true, error: false, episodes: [] });
@@ -76,8 +84,9 @@ class Episodes extends Component<Props, State> {
 
   render() {
     let { podcast } = this.props;
-    let { episodes, loading, error, descId } = this.state;
+    let { episodes, count, loading, error, descId } = this.state;
     let onPlay = this.handleEpisodePlay(podcast).bind(this);
+    let onLoadMore = this.handleLoadMore.bind(this);
     let onDescToggle = this.handleDescToggle.bind(this);
     return (
       <div className='episodes'>
@@ -85,7 +94,15 @@ class Episodes extends Component<Props, State> {
         ? <div className='loader'></div>
         : error
           ? <div className='error'>Error Fetching Podcasts.</div>
-          : episodes.map(renderEpisode(onPlay, onDescToggle, descId))
+          : <div>
+              {episodes.slice(0, count).map(renderEpisode(onPlay, onDescToggle, descId))}
+              { count < episodes.length
+              ? <div className='load-more' onClick={onLoadMore}>
+                  load more episodes.
+                </div>
+              : undefined
+              }
+            </div>
         }
       </div>
     );
