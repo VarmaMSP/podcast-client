@@ -2,13 +2,12 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const basePath = __dirname;
-const outputDir = path.resolve(basePath, 'docs');
 
 //JSX WEBPACK CONFIG
 const jsConfig = env => ({
   entry: path.resolve(basePath, 'app', 'index.js'),
   output: {
-    path: env === 'dev' ? '/' : path.resolve(outputDir, 'js'),
+    path: env === 'dev' ? '/' : path.resolve(basePath, 'docs', 'js'),
     publicPath: '/js/',
     filename: 'index.js'
   },
@@ -17,7 +16,6 @@ const jsConfig = env => ({
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: path.resolve(basePath, 'app'),
         options: {
           presets: ['react', 'es2015']
         }
@@ -42,7 +40,7 @@ const jsConfig = env => ({
 const scssConfig = env => ({
   entry: path.resolve(basePath, 'app', 'index.scss'),
   output: {
-    path: env === 'dev' ? '/' : path.resolve(outputDir, 'css'),
+    path: env === 'dev' ? '/' : path.resolve(basePath, 'docs', 'css'),
     publicPath: '/css/',
     filename: 'index.css'
   },
