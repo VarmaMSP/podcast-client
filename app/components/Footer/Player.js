@@ -133,7 +133,7 @@ export default class Audio extends Component<Props, State> {
     let playIconSrc = status === 'PLAY' ? '/img/pause.png' : '/img/play.png';
 
     return (
-      <div>
+      <div className={status === 'LOAD' ? 'overlay' : ''}>
         {/* CONTROLS */}
         <div className='controls'>
           <img src={playIconSrc} onClick={this.handleToggle.bind(this)} id='play'/>

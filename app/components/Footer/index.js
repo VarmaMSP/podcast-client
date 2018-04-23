@@ -13,17 +13,15 @@ type Props = {
 };
 
 const Footer = ({ podcast, episode }: Props) => (
-  <footer>
-    <div className='container'>
+    <footer style={ podcast && episode ? {} : { height: '0'}}>
       { podcast && episode
-      ? <div>
+      ? <div className='container'>
           <Albumart src={podcast.imageUrl}/>
           <Player podcastTitle={podcast.title} episode={episode}/>
         </div>
       : undefined
       }
-    </div>
-  </footer>
+    </footer>
 );
 
 const mapStatetoProps = ({ nowPlaying }: State) => (

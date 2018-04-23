@@ -19,6 +19,7 @@ footer {
   // ALBUM ART
   .album-art {
     float: left;
+
     img {
       height: $img-height;
       transition: $trans-time;
@@ -40,8 +41,8 @@ footer {
 
   // PLAYER
   .player {
+    margin-left: $img-height + 20px;
     padding-top: 2px;
-    padding-left: $img-height + 20px;
     transition: $trans-time;
 
     // DETAILS
@@ -115,6 +116,19 @@ footer {
       }
     }
   }
+
+  // OVERLAY (LOADING) //
+  & .overlay {
+    .controls {
+      display: none;
+    }
+    .player {
+      background-color: $bg-color;
+      -webkit-filter: blur(4px);
+              filter: blur(4px);
+      animation: blink 2s linear infinite;
+    }
+  }
 }
 
 #footer-state:checked {
@@ -131,7 +145,7 @@ footer {
       #arrow { transform: rotate(180deg); }
     }
     .player {
-      padding-left: $img-height-a + 20px;
+      margin-left: $img-height-a + 20px;
       .audio {
         opacity: 1;
       }
