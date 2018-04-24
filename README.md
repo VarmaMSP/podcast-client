@@ -1,7 +1,7 @@
 # [Phenopod](http://phenopod.com)
 > A minimalist podcast player that runs in your browser.
 
-Phenopod is a minimal podcast player that allows you search and play your favourite podcasts in your browser.
+Phenopod is a minimal podcast player that allows you to search and stream your favourite podcasts in browser.
 
 ![alt text](https://raw.githubusercontent.com/VarmaMSP/phenopod/master/screenshot.png "Screenshot")
 
