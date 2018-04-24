@@ -5,8 +5,6 @@ Phenopod is a minimal podcast player that allows you search and play your favour
 
 ![alt text](https://raw.githubusercontent.com/VarmaMSP/phenopod/master/screenshot.png)
 
----
-
 ## Tools
 This project is made with these great open source tools:
 
@@ -16,8 +14,6 @@ This project is made with these great open source tools:
 * [SASS](http://sass-lang.com/)
 * [Request](https://github.com/request/request)
 * [Node-feedparser](https://github.com/danmactough/node-feedparser)
-
----
 
 ## Installation
 Install yarn globally before installation.
