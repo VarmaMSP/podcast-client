@@ -1,6 +1,6 @@
 // @flow
 import type {Podcast, Episode} from '../types/podcast';
-import type {PodcastAction, NowPlayingAction} from '../types/actions';
+import type {PodcastAction, NowPlayingAction, SubscriptionsAction} from '../types/actions';
 import {combineReducers} from 'redux';
 
 const podcastReducer = (state: ?Podcast = null, action: PodcastAction): ?Podcast => {
@@ -26,7 +26,26 @@ const nowPlayingReducer = (state: ?NowPlayingState = null, action: NowPlayingAct
   }
 };
 
+const subscriptionsReducer = (state: Array<Podcast> = [], action: SubscriptionsAction): Array<Podcast> => {
+  switch(action.type) {
+    case 'SUBSCRIBE_PODCAST':
+      return state.concat(action.podcast);
+    case 'UNSUBSCRIBE_PODCAST':
+      for (let i = 0; i < state.length; ++i) {
+        if (state[i].id === action.id) {
+          let l = state.slice(0, id),
+              r = state.slice(id + 1);
+          return l.concat(r);
+        }
+      }
+      return state;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   podcast: podcastReducer,
-  nowPlaying: nowPlayingReducer
+  nowPlaying: nowPlayingReducer,
+  subscriptions: subscriptionsReducer
 });

@@ -1,7 +1,12 @@
 // @flow
 import type {Store as ReduxStore, Dispatch as ReduxDispatch} from 'redux';
 import type {Podcast, Episode} from './podcast';
-import type {SelectPodcastAction, SelectEpisodeAction} from './actions';
+import type {
+  SelectPodcastAction,
+  SelectEpisodeAction,
+  SubscribeAction,
+  UnsubscribeAction
+} from './actions';
 
 export type State = {|
   podcast: ?Podcast,
@@ -13,6 +18,8 @@ export type State = {|
 
 export type Action = SelectPodcastAction
                    | SelectEpisodeAction
+                   | SubscribeAction
+                   | UnsubscribeAction
 
 export type Store    = ReduxStore<State, Action>;
 export type Dispatch = ReduxDispatch<Action>;

@@ -11,3 +11,13 @@ export const selectEpisode = (podcast: Podcast, episode: Episode): SelectEpisode
   type: 'SELECT_EPISODE',
   data: { podcast, episode }
 });
+
+export const subscribe = (podcast: Podcast) => ({
+  type: 'SUBSCRIBE_PODCAST',
+  podcast
+});
+
+export const unsubscribe = (podcast: Podcast) => ({
+  type: 'UNSUBSCRIBE_PODCAST',
+  id: podcast.id
+});
