@@ -15,7 +15,7 @@ type Props = {
 };
 
 type State = {|
-  results: ?Array<Podcast>,
+  results: Array<Podcast>,
   loading: boolean,
   error: boolean
 |};
@@ -24,7 +24,7 @@ class SearchResults extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      results: undefined,
+      results: [],
       loading: true,
       error: false
     };
@@ -40,7 +40,6 @@ class SearchResults extends Component<Props, State> {
           error: false
         }))
         .catch(() => this.setState({
-          results: undefined,
           loading: false,
           error: true
         }));
@@ -63,9 +62,9 @@ class SearchResults extends Component<Props, State> {
       <div className='search-results'>
         { loading
         ? <div className='loader'></div>
-        : error || !results
+        : error
           ? <div className='error'>No Results Found</div>
-          : results.map(result => <Result podcast={result} history={history}/>)
+          : results.map(result => <Result result={result} history={history}/>)
         }
       </div>
     );
