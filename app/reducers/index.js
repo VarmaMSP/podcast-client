@@ -33,8 +33,8 @@ const subscriptionsReducer = (state: Array<Podcast> = [], action: SubscriptionsA
     case 'UNSUBSCRIBE_PODCAST':
       for (let i = 0; i < state.length; ++i) {
         if (state[i].id === action.id) {
-          let l = state.slice(0, id),
-              r = state.slice(id + 1);
+          let l = state.slice(0, i),
+              r = state.slice(i + 1);
           return l.concat(r);
         }
       }
