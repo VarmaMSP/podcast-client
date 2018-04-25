@@ -64,7 +64,7 @@ class SearchResults extends Component<Props, State> {
         ? <div className='loader'></div>
         : error
           ? <div className='error'>No Results Found</div>
-          : results.map(result => <Result result={result} history={history}/>)
+          : results.map((result, i) => <Result key={i} result={result} history={history}/>)
         }
       </div>
     );
