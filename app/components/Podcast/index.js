@@ -8,18 +8,26 @@ import Details from './Details';
 import Episodes from './Episodes';
 
 type Props = {|
-  podcast: ?PodcastType
+  podcast: ?PodcastType,
+  subscribed: boolean
 |};
 
-const Podcast = ({ podcast }: Props) => (
-  podcast
-    ? <div className ='podcast'>
-        <Details podcast={podcast}/>
-        <Episodes podcast={podcast}/>
-      </div>
-    : undefined
-);
+const Podcast = ({ podcast, subscribed }: Props) => podcast
+  ? <div className ='podcast'>
+      <Details podcast={podcast} subscribed={subscribed}/>
+      <Episodes podcast={podcast}/>
+    </div>
+  : <div> Search for your favourite podcasts.</div>
 
-const mapStatetoProps = ({ podcast }: State) => ({ podcast });
+const mapStatetoProps = ({ podcast, subscriptions }: State) => {
+  let subscribed = false;
+  if (podcast) {
+    let { id } = podcast;
+    for (let i = 0; i < subscriptions.length; ++i) {
+      if (subscriptions[i].id === id) subscribed = true;
+    }
+  }
+  return { podcast, subscribed }
+};
 
 export default connect(mapStatetoProps, null)(Podcast);

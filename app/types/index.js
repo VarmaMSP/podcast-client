@@ -9,11 +9,12 @@ import type {
 } from './actions';
 
 export type State = {|
-  podcast: ?Podcast,
-  nowPlaying: ?{
+  +podcast: ?Podcast,
+  +nowPlaying: ?{
     podcast: Podcast,
     episode: Episode
-  }
+  },
+  +subscriptions: Array<Podcast>
 |};
 
 export type Action = SelectPodcastAction
