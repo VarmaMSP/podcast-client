@@ -6,12 +6,12 @@ export type NowPlayingAction = SelectEpisodeAction
 export type SubscriptionsAction = SubscribeAction | UnsubscribeAction
 
 export type SelectPodcastAction = {|
-  type: string,
+  type: 'SELECT_PODCAST',
   podcast: Podcast
 |};
 
 export type SelectEpisodeAction = {|
-  type: string,
+  type: 'SELECT_EPISODE',
   data: {
     episode: Episode,
     podcast: Podcast
@@ -19,11 +19,11 @@ export type SelectEpisodeAction = {|
 |};
 
 export type SubscribeAction = {|
-  type: string,
+  type: 'SUBSCRIBE_PODCAST',
   podcast: Podcast
 |};
 
 export type UnsubscribeAction = {|
-  type: string,
+  type: 'UNSUBSCRIBE_PODCAST',
   id: number
 |};
