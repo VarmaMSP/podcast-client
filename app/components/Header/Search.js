@@ -1,15 +1,16 @@
 // @flow
-import type {RouterHistory} from 'react-router-dom';
+import type {Match, RouterHistory} from 'react-router-dom';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router';
 
-type Props = {
+type Props = {|
+  match: Match,
   history: RouterHistory
-};
+|};
 
-type State = {
+type State = {|
   searchTerm: string
-};
+|};
 
 class Search extends Component<Props, State> {
   constructor() {

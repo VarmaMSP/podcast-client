@@ -1,6 +1,5 @@
 // @flow
-import type {Match} from 'react-router-dom';
-import type {RouterHistory} from 'react-router-dom';
+import type {Match, RouterHistory} from 'react-router-dom';
 import type {Podcast} from '../../types/podcast';
 import type {Action, Dispatch} from '../../types/index';
 
@@ -9,10 +8,10 @@ import {withRouter} from 'react-router';
 import fetchPodcasts from '../../api/search';
 import Result from './Result';
 
-type Props = {
+type Props = {|
   match: Match,
   history: RouterHistory,
-};
+|};
 
 type State = {|
   results: Array<Podcast>,

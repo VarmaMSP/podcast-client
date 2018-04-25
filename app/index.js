@@ -11,8 +11,12 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Podcast from './components/Podcast';
 import SearchResults from './components/SearchResults';
+import Subscriptions from './components/Subscriptions';
+import {loadState, saveState} from './utils/localStorage';
 
-const store: Store = createStore(reducers);
+
+const prevState: State = loadState();
+const store: Store = createStore(reducers, prevState);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,6 +26,7 @@ ReactDOM.render(
         <div className='main-content container'>
           <Switch>
             <Route exact path='/podcast' component={Podcast}/>
+            <Route exact path='/subscriptions' component={Subscriptions}/>
             <Route exact path='/search/:term' component={SearchResults}/>
           </Switch>
         </div>
@@ -32,3 +37,5 @@ ReactDOM.render(
   </Provider>,
   (document.getElementById('app'): any)
 );
+
+store.subscribe(() => saveState(store.getState()));
