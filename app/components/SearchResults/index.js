@@ -5,19 +5,17 @@ import type {Podcast} from '../../types/podcast';
 import type {Action, Dispatch} from '../../types/index';
 
 import React, {Component} from 'react';
-import {connect} from 'react-redux'
 import {withRouter} from 'react-router';
-import {selectPodcast} from '../../actions';
 import fetchPodcasts from '../../api/search';
+import Result from './Result';
 
 type Props = {
   match: Match,
   history: RouterHistory,
-  selectPodcast: Podcast => Action
 };
 
 type State = {|
-  podcasts: ?Array<Podcast>,
+  results: ?Array<Podcast>,
   loading: boolean,
   error: boolean
 |};
@@ -26,7 +24,7 @@ class SearchResults extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      podcasts: undefined,
+      results: undefined,
       loading: true,
       error: false
     };
@@ -36,23 +34,16 @@ class SearchResults extends Component<Props, State> {
     let { term } = props.match.params;
     if (term) {
       fetchPodcasts(term, 50)
-        .then(podcasts => this.setState({
-          podcasts: podcasts,
+        .then(results => this.setState({
+          results,
           loading: false,
           error: false
         }))
         .catch(() => this.setState({
-          podcasts: undefined,
+          results: undefined,
           loading: false,
           error: true
         }));
-    }
-  }
-
-  handlePodcastSelect(podcast: Podcast) {
-    return () => {
-      this.props.selectPodcast(podcast);
-      this.props.history.push('/podcast');
     }
   }
 
@@ -61,42 +52,24 @@ class SearchResults extends Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    this.setState({
-      podcasts: undefined,
-      loading: true,
-      error: false
-    });
+    this.setState({ results: undefined, loading: true, error: false });
     this.handleResultsFetch.call(this, nextProps);
   }
 
   render() {
-    let { error, loading, podcasts } = this.state;
-    let onPodcastSelect = this.handlePodcastSelect.bind(this);
+    let { history } = this.props;
+    let { error, loading, results } = this.state;
     return (
       <div className='search-results'>
         { loading
         ? <div className='loader'></div>
-        : error || !podcasts
+        : error || !results
           ? <div className='error'>No Results Found</div>
-          : podcasts.map(renderResult(onPodcastSelect))
+          : results.map(result => <Result podcast={result} history={history}/>)
         }
       </div>
     );
   }
 }
 
-const renderResult = (onSelect) => (podcast: Podcast, i: number) => (
-  <div className='result' key={i} onClick={onSelect(podcast)}>
-    <img src={`${podcast.imageUrl}/200x200.jpg`} className="podcast-image"/>
-    <div className='title'>{podcast.title}</div>
-    <div className='artist'>{podcast.artist}</div>
-  </div>
-);
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  selectPodcast: (podcast: Podcast) => dispatch(selectPodcast(podcast))
-});
-
-export default withRouter(
-  connect(null, mapDispatchToProps)(SearchResults)
-);
+export default withRouter(SearchResults);
