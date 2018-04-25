@@ -1,5 +1,6 @@
 // @flow
 export type Podcast = {|
+  id: number,
   title: string,
   artist: string,
   imageUrl: string,

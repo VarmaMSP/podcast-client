@@ -11,6 +11,7 @@ export default function fetchPodcasts(term: string, limit: number): Promise<Arra
       try {
         let { results } = JSON.parse(body);
         let podcasts: Array<Podcast> = results.map(p => ({
+          id       : p.collectionId,
           title    : p.collectionName,
           artist   : p.artistName,
           imageUrl : p.artworkUrl100.replace(/\/[^\/]*$/, ''),
