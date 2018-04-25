@@ -11,7 +11,9 @@ type ReqOpts = {|
 |};
 
 export default function fetchEpisodes(reqOpts: ReqOpts): Promise<Array<Episode>> {
-  reqOpts.url = 'http://cors-anywhere.herokuapp.com/' + reqOpts.url;
+  reqOpts.url = (new URL(reqOpts.url)).hostname === 'feeds.feedburner.com'
+    ? 'http://cors-anywhere.herokuapp.com/' + reqOpts.url + '?format=xml'
+    : 'http://cors-anywhere.herokuapp.com/' + reqOpts.url;
   return new Promise((resolve, reject) => {
     let episodes: Array<Episode> = [];
     const parser = new FeedParser(),
@@ -43,12 +45,12 @@ export default function fetchEpisodes(reqOpts: ReqOpts): Promise<Array<Episode>>
   })
 }
 
-function stripNonUTF8 (str: string): string {
+function stripNonUTF8(str: string): string {
   return str.replace(/[\u0800-\uFFFF]/g, '');
 }
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-export const formatDate = (dateString: string): string => {
+const formatDate = (dateString: string): string => {
   let date = new Date(dateString);
   return date
     ? `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`

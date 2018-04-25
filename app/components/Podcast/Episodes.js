@@ -24,7 +24,6 @@ type State = {|
 class Episodes extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    console.log(props.podcast);
     this.state = {
       loading: true,
       error: false,

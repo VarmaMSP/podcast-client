@@ -97,9 +97,8 @@
           font-style: italic;
           text-decoration: underline;
         }
-        img {
-          width: 20%;
-          margin: 0 auto;
+        img, audio, iframe {
+          display: none;
         }
         &.show {
           height: 10rem;
