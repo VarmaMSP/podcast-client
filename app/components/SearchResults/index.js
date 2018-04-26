@@ -4,7 +4,7 @@ import type {Podcast} from '../../types/podcast';
 import type {Action, Dispatch} from '../../types/index';
 
 import React, {Component} from 'react';
-import {withRouter} from 'react-router';
+import {withRouter} from 'react-router-dom';
 import fetchPodcasts from '../../api/search';
 import Result from './Result';
 

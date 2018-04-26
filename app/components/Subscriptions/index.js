@@ -5,7 +5,7 @@ import type {Podcast} from '../../types/podcast';
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
+import {withRouter} from 'react-router-dom';
 import Subscription from './Subscription';
 
 type Props = {|

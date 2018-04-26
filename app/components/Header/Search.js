@@ -1,7 +1,7 @@
 // @flow
 import type {Match, RouterHistory} from 'react-router-dom';
 import React, {Component} from 'react';
-import {withRouter} from 'react-router';
+import {withRouter} from 'react-router-dom';
 
 type Props = {|
   match: Match,
