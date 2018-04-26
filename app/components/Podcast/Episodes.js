@@ -39,7 +39,7 @@ class Episodes extends Component<Props, State> {
       method: 'GET'
     };
     fetchEpisodes(reqOpts)
-      .then(episodes => this.setState({
+      .then(({episodes}) => this.setState({
         loading: false,
         episodes
       }))

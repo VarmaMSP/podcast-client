@@ -30,6 +30,7 @@ header {
     width: 400px;
     height: $header-height;
     padding-top: 0.4rem;
+    margin-left: 3%;
 
     input[type="text"] {
       width: 100%;
@@ -44,6 +45,8 @@ header {
   .link {
     display: block;
     float: right;
+    height: $header-height;
+    padding-top: 0.2rem;
     cursor: pointer;
     transition: 0.3s;
 
@@ -59,7 +62,7 @@ header {
       font-weight: 800;
       opacity: 0.6;
     }
-    &.one { width: 200px; }
+    &.one { width: 150px; }
     &.two { width: 100px; }
     &:hover { background-color: darken($primary-color, 3%); }
   }
