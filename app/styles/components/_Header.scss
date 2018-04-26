@@ -3,19 +3,21 @@ header {
   top: 0;
   width: 100%;
   height: $header-height;
-  padding-top: 0.2rem;
   border-bottom: $border;
   background-color: $primary-color;
   z-index: 10000;
 
   // SITE LOGO
   .logo {
-    display: inline-block;
-    width: 40%;
+    display: block;
+    float: left;
+    width: 200px;
+    height: $header-height;
     font-size: 2rem;
     font-weight: 600;
     color: #b20000;
     text-align: left;
+    padding-top: 0.2rem;
 
     sup {
       font-size: 1rem;
@@ -24,9 +26,10 @@ header {
   // SEARCH INPUT
   .search {
     display: block;
-    float: right;
-    width: 60%;
-    padding-top: 0.2rem;
+    float: left;
+    width: 400px;
+    height: $header-height;
+    padding-top: 0.4rem;
 
     input[type="text"] {
       width: 100%;
@@ -37,5 +40,27 @@ header {
       background-color: lighten($primary-color, 5%);
       font-size: 1rem;
     }
+  }
+  .link {
+    display: block;
+    float: right;
+    cursor: pointer;
+    transition: 0.3s;
+
+    img {
+      float: left;
+      opacity: 0.6;
+      width: 30px;
+      height: 30px;
+      margin: 0.3rem 0.2rem 0 0.2rem;
+    }
+    p {
+      font-size: 1rem;
+      font-weight: 800;
+      opacity: 0.6;
+    }
+    &.one { width: 200px; }
+    &.two { width: 100px; }
+    &:hover { background-color: darken($primary-color, 3%); }
   }
 }
