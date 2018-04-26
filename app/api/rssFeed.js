@@ -10,16 +10,30 @@ type ReqOpts = {|
   headers?: Object
 |};
 
-export default function fetchEpisodes(reqOpts: ReqOpts): Promise<Array<Episode>> {
+type FetchEpisodesResponse = {|
+  status: string,
+  episodes: Array<Episode>,
+  lastModified: string,
+|};
+
+export default function fetchEpisodes(reqOpts: ReqOpts): Promise<FetchEpisodesResponse> {
   reqOpts.url = (new URL(reqOpts.url)).hostname === 'feeds.feedburner.com'
     ? 'http://cors-anywhere.herokuapp.com/' + reqOpts.url + '?format=xml'
     : 'http://cors-anywhere.herokuapp.com/' + reqOpts.url;
   return new Promise((resolve, reject) => {
+    const parser = new FeedParser();
+    const feedReq = request(reqOpts);
+
+    let status: string           = '';
+    let lastModified: string     = '';
     let episodes: Array<Episode> = [];
-    const parser = new FeedParser(),
-          feedReq = request(reqOpts);
+
     feedReq
       .on('error', reject)
+      .on('response', ({statusCode, headers}) => {
+        status = statusCode;
+        lastModified = headers['last-modified'];
+      })
       .pipe(parser);
 
     parser
@@ -41,7 +55,7 @@ export default function fetchEpisodes(reqOpts: ReqOpts): Promise<Array<Episode>>
           }
         }
       })
-      .on('end', () => resolve(episodes));
+      .on('end', () => resolve({status, episodes, lastModified}));
   })
 }
 
