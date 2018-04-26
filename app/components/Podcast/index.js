@@ -15,7 +15,7 @@ type Props = {|
 const Podcast = ({ podcast, subscribed }: Props) => podcast
   ? <div className ='podcast'>
       <Details podcast={podcast} subscribed={subscribed}/>
-      <Episodes podcast={podcast}/>
+      <Episodes podcast={podcast} cache={subscribed}/>
     </div>
   : <div> Search for your favourite podcasts.</div>
 

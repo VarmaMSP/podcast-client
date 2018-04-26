@@ -14,3 +14,9 @@ export type Episode = {|
   link: string,
   fileType: string
 |};
+
+export type FeedScheme = {|
+  podcastId: number,
+  lastModified: string,
+  episodes: Array<Episode>
+|};

@@ -9,6 +9,7 @@ import fetchEpisodes from '../../api/rssFeed';
 import {selectEpisode} from '../../actions/index';
 
 type Props = {|
+  cache: boolean,   // If set, response feed will be cached.
   podcast: Podcast,
   playEpisode: (Podcast, Episode) => Action
 |};
@@ -33,13 +34,10 @@ class Episodes extends Component<Props, State> {
     };
   }
 
-  handleEpisodesFetch(podcast: Podcast) {
-    let reqOpts = {
-      url: podcast.feedUrl,
-      method: 'GET'
-    };
-    fetchEpisodes(reqOpts)
-      .then(({episodes}) => this.setState({
+  componentDidMount() {
+    let { podcast, cache } = this.props;
+    fetchEpisodes(podcast.feedUrl, podcast.id, cache)
+      .then((episodes) => this.setState({
         loading: false,
         episodes
       }))
@@ -70,17 +68,6 @@ class Episodes extends Component<Props, State> {
     this.setState({ count: count + 10 });
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    let { podcast } = nextProps;
-    this.setState({ loading: true, error: false, episodes: [] });
-    this.handleEpisodesFetch.call(this, podcast);
-  }
-
-  componentDidMount() {
-    let { podcast } = this.props;
-    this.handleEpisodesFetch.call(this, podcast);
-  }
-
   render() {
     let { podcast } = this.props;
     let { episodes, count, loading, error, descId } = this.state;
@@ -96,9 +83,7 @@ class Episodes extends Component<Props, State> {
           : <div>
               {episodes.slice(0, count).map(renderEpisode(onPlay, onDescToggle, descId))}
               { count < episodes.length
-              ? <div className='load-more' onClick={onLoadMore}>
-                  load more episodes.
-                </div>
+              ? <div className='load-more' onClick={onLoadMore}> load more episodes. </div>
               : undefined
               }
             </div>

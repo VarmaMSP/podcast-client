@@ -3,70 +3,99 @@ import type {Episode} from '../types/podcast';
 
 import request from 'request';
 import FeedParser from 'feedparser';
+import {insertFeed, selectFeed} from '../utils/db';
 
+/* Use IndexedDb as a Cache to store RSS Feed */
+export default async function fetchEpisodes(feedUrl: string, podcastId: number, cache: boolean = false, onlyNew: boolean = false) {
+  let persistedFeed = await selectFeed(podcastId);
+  try {
+    let { status, lastModified, episodes } = await fetchFeed({
+      url: feedUrl,
+      method: 'GET',
+      headers: persistedFeed ? { 'if-modified-since': persistedFeed.lastModified } : {}
+    });
+    switch (status) {
+      case 200:
+        await insertFeed({podcastId, lastModified, episodes});
+        return onlyNew ? episodes : episodes;
+      case 304:
+        return persistedFeed.episodes;
+    }
+  } catch(err) {
+    throw err;
+  }
+};
+
+/* Function to fetch RSS feed */
 type ReqOpts = {|
   url: string,
   method?: string,
   headers?: Object
 |};
 
-type FetchEpisodesResponse = {|
+type Feed = {|
   status: string,
   episodes: Array<Episode>,
   lastModified: string,
 |};
 
-export default function fetchEpisodes(reqOpts: ReqOpts): Promise<FetchEpisodesResponse> {
-  reqOpts.url = (new URL(reqOpts.url)).hostname === 'feeds.feedburner.com'
-    ? 'http://cors-anywhere.herokuapp.com/' + reqOpts.url + '?format=xml'
-    : 'http://cors-anywhere.herokuapp.com/' + reqOpts.url;
+function fetchFeed(opts: ReqOpts): Promise<Feed> {
   return new Promise((resolve, reject) => {
-    const parser = new FeedParser();
-    const feedReq = request(reqOpts);
+    try {
+      opts.url += (new URL(opts.url)).hostname === 'feeds.feedburner.com' ? '?format=xml' : '';
+      opts.url = 'http://cors-anywhere.herokuapp.com/' + opts.url;
 
-    let status: string           = '';
-    let lastModified: string     = '';
-    let episodes: Array<Episode> = [];
+      const parser = new FeedParser();
+      const feedReq = request(opts);
 
-    feedReq
-      .on('error', reject)
-      .on('response', ({statusCode, headers}) => {
-        status = statusCode;
-        lastModified = headers['last-modified'];
-      })
-      .pipe(parser);
+      let status: string           = '';
+      let lastModified: string     = '';
+      let episodes: Array<Episode> = [];
 
-    parser
-      .on('error', reject)
-      .on('readable', () => {
-        let item;
-        while(item = parser.read()) {
-          try {
-            let episode: Episode = {
-              title       : stripNonUTF8(item.title),
-              description : stripNonUTF8(item.description),
-              date        : formatDate(item.date),
-              link        : item.enclosures[0].url,
-              fileType    : item.enclosures[0].type,
-            };
-            episodes.push(episode);
-          } catch(e) {
-            continue;
+      feedReq
+        .on('error', reject)
+        .on('response', ({statusCode, headers}) => {
+          status       = statusCode;
+          lastModified = headers['last-modified'];
+          console.log(status);
+          console.log(headers);
+        })
+        .pipe(parser);
+
+      parser
+        .on('readable', () => {
+          let item;
+          while(item = parser.read()) {
+            try {
+              let episode: Episode = {
+                title       : stripNonUTF8(item.title),
+                description : stripNonUTF8(item.description),
+                date        : formatDate(item.date),
+                link        : item.enclosures[0].url,
+                fileType    : item.enclosures[0].type,
+              };
+              episodes.push(episode);
+            } catch(e) {
+              continue;
+            }
           }
-        }
-      })
-      .on('end', () => resolve({status, episodes, lastModified}));
-  })
+        })
+        .on('end', () => resolve({status, episodes, lastModified}))
+        .on('error', () => status === 304 ? resolve({status, lastModified, episodes: []}) : reject());
+    } catch(err) {
+      reject(err);
+    }
+  });
+}
+
+/* Utility Functions For FetchFeed function */
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+function formatDate(dateString: string): string {
+  let date = new Date(dateString);
+  return date ? `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}` : ''
 }
 
 function stripNonUTF8(str: string): string {
   return str.replace(/[\u0800-\uFFFF]/g, '');
-}
-
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-const formatDate = (dateString: string): string => {
-  let date = new Date(dateString);
-  return date
-    ? `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`
-    : ''
 }
