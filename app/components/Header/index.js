@@ -9,8 +9,8 @@ const Header = () => (
   <header>
     <div className='container'>
       <Logo/>
-      <Search/>
       <Links/>
+      <Search/>
     </div>
   </header>
 );

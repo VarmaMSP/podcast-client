@@ -45,7 +45,7 @@ class Search extends Component<Props, State> {
             onKeyDown={e => e.stopPropagation()}
             onKeyPress={e => e.stopPropagation()}
             onChange={onSearchTermChange}
-            placeholder={'Search Podcasts...'}
+            placeholder={'Search...'}
           />
         </form>
       </div>

@@ -12,12 +12,10 @@ type Props = {|
 const Links = ({history}: Props) => (
   <div className='links'>
     <div className='link one' onClick={e => history.push('/subscriptions')}>
-      <img src='/img/subscriptions.png'/>
-      <p>Subscriptions</p>
+      Subscriptions
     </div>
     <div className='link two' onClick={e => history.push('/subscriptions')}>
-      <img src='/img/feed.png'/>
-      <p>Feed</p>
+      Feed
     </div>
   </div>
 );
