@@ -1,7 +1,7 @@
 # [Phenopod](http://phenopod.com)
-> A minimalist podcast player that runs in your browser.
+> A minimalistic podcast player that runs in your browser.
 
-Phenopod is a minimal podcast player that allows you to search and stream your favourite podcasts in browser.
+Phenopod is a minimalistic podcast player that allows you to search and stream your favourite podcasts in browser.
 
 ![alt text](https://raw.githubusercontent.com/VarmaMSP/phenopod/master/screenshot.png "Screenshot")
 
@@ -20,8 +20,11 @@ Install yarn globally before installation.
 
 ```sh
 git clone https://github.com/VarmaMSP/phenopod.git
+
 cd phenopod
+
 yarn setup
+
 yarn build:dev
 ```
 Open your browser at: http://localhost:8081
