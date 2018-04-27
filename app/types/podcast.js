@@ -15,6 +15,11 @@ export type Episode = {|
   fileType: string
 |};
 
+export type AudioData = {|
+  episode: Episode,
+  podcast: Podcast
+|};
+
 export type FeedScheme = {|
   podcastId: number,
   lastModified: string,
