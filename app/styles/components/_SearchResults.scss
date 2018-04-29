@@ -9,7 +9,7 @@ $result-height: 20rem;
   padding: 1rem 0;
 
   .loader {
-    @include loader(fixed, 6.5rem, 0.8rem, darken($primary-color, 20%));
+    @include loader(fixed, 5rem, 0.5rem, darken($primary-color, 20%), darken($bg-color, 3%));
   }
   // INDIVIDUAL RESULT
   .result {

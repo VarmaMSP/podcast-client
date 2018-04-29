@@ -3,7 +3,7 @@ import React from 'react';
 
 const Logo = () => (
   <div className='logo'>
-    Phenopod<sup> β</sup>
+    Phenopod
   </div>
 );
 

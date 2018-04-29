@@ -144,12 +144,12 @@ export default class Audio extends Component<Props, State> {
           {/* DETAILS */}
           <div className='details'>
             <div className='now-playing'>Now Playing</div>
-            <div className='episode'>
-              <span className='title'>{title}</span>
-              <span className='dot'> • </span>
+            <div className='episode-title'>{title}</div>
+            <div className='episode-details'>
               <span className='date'>{date}</span>
+              <span className='dot'> • </span>
+              <span className='podcast-title'>{podcastTitle}</span>
             </div>
-            <div className='podcast-title'>{podcastTitle}</div>
           </div>
 
           {/* AUDIO COMPONENT */}
