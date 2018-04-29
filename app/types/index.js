@@ -5,19 +5,24 @@ import type {
   SelectPodcastAction,
   SelectEpisodeAction,
   SubscribeAction,
-  UnsubscribeAction
+  UnsubscribeAction,
+  UpdateUserFeedAction,
+  TruncateUserFeedAction
 } from './actions';
 
 export type State = {|
   +podcast: ?Podcast,
   +nowPlaying: ?AudioData,
-  +subscriptions: Array<Podcast>
+  +subscriptions: Array<Podcast>,
+  +userFeed: Array<AudioData>
 |};
 
 export type Action = SelectPodcastAction
                    | SelectEpisodeAction
                    | SubscribeAction
                    | UnsubscribeAction
+                   | UpdateUserFeedAction
+                   | TruncateUserFeedAction;
 
 export type Store    = ReduxStore<State, Action>;
 export type Dispatch = ReduxDispatch<Action>;

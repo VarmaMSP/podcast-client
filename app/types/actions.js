@@ -1,9 +1,10 @@
 // @flow
-import type {Podcast, Episode} from './podcast';
+import type {Podcast, Episode, AudioData} from './podcast';
 
-export type PodcastAction = SelectPodcastAction
-export type NowPlayingAction = SelectEpisodeAction
-export type SubscriptionsAction = SubscribeAction | UnsubscribeAction
+export type PodcastAction = SelectPodcastAction;
+export type NowPlayingAction = SelectEpisodeAction;
+export type SubscriptionsAction = SubscribeAction | UnsubscribeAction;
+export type UserFeedAction = UpdateUserFeedAction | TruncateUserFeedAction;
 
 export type SelectPodcastAction = {|
   type: 'SELECT_PODCAST',
@@ -25,5 +26,15 @@ export type SubscribeAction = {|
 
 export type UnsubscribeAction = {|
   type: 'UNSUBSCRIBE_PODCAST',
+  id: number
+|};
+
+export type UpdateUserFeedAction = {|
+  type: 'UPDATE_USER_FEED',
+  items: Array<AudioData>
+|};
+
+export type TruncateUserFeedAction = {|
+  type: 'TRUNCATE_USER_FEED',
   id: number
 |};
