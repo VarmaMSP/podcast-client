@@ -14,13 +14,18 @@ export default async function fetchEpisodes(feedUrl: string, podcastId: number, 
       method: 'GET',
       headers: persistedFeed ? { 'if-modified-since': persistedFeed.lastModified } : {}
     });
-    switch (status) {
-      case 200:
-        await insertFeed({podcastId, lastModified, episodes});
-        return onlyNew ? episodes : episodes;
-      case 304:
-        return persistedFeed.episodes;
+    if (status === 200 && cache)
+      await insertFeed({podcastId, lastModified, episodes});
+    if (status === 304)
+      episodes = persistedFeed.episodes;
+    if (onlyNew && persistedFeed) {
+      let d = new Date(persistedFeed.lastModified);
+      for (let i = 0; i < episodes.length; ++i) {
+        if ((new Date(episodes[i].date)) < d)
+          return episodes.slice(0, i + 1);
+      }
     }
+    return onlyNew ? episodes.slice(0, 4) : episodes;
   } catch(err) {
     throw err;
   }
