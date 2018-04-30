@@ -62,8 +62,6 @@ function fetchFeed(opts: ReqOpts): Promise<Feed> {
         .on('response', ({statusCode, headers}) => {
           status       = statusCode;
           lastModified = headers['last-modified'];
-          console.log(status);
-          console.log(headers);
         })
         .pipe(parser);
 

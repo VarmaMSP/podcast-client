@@ -9,17 +9,18 @@ import Episodes from './Episodes';
 
 type Props = {|
   podcast: ?PodcastType,
-  subscribed: boolean
+  subscribed: boolean,
+  isSubscribing: boolean
 |};
 
-const Podcast = ({ podcast, subscribed }: Props) => podcast
+const Podcast = ({ podcast, subscribed, isSubscribing }: Props) => podcast
   ? <div className ='podcast'>
-      <Details podcast={podcast} subscribed={subscribed}/>
+      <Details podcast={podcast} subscribed={subscribed} isSubscribing={isSubscribing}/>
       <Episodes podcast={podcast} cache={subscribed}/>
     </div>
   : <div> Search for your favourite podcasts.</div>
 
-const mapStatetoProps = ({ podcast, subscriptions }: State) => {
+const mapStatetoProps = ({ podcast, subscriptions, addingNewSubscription }: State) => {
   let subscribed = false;
   if (podcast) {
     let { id } = podcast;
@@ -27,7 +28,7 @@ const mapStatetoProps = ({ podcast, subscriptions }: State) => {
       if (subscriptions[i].id === id) subscribed = true;
     }
   }
-  return { podcast, subscribed }
+  return { podcast, subscribed, isSubscribing: addingNewSubscription }
 };
 
 export default connect(mapStatetoProps, null)(Podcast);

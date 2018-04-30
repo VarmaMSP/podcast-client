@@ -2,13 +2,15 @@
 import type {Store, State} from './types/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import reducers from './reducers';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Feed from './components/Feed';
 import Podcast from './components/Podcast';
 import SearchResults from './components/SearchResults';
 import Subscriptions from './components/Subscriptions';
@@ -16,7 +18,7 @@ import {loadState, saveState} from './utils/localStorage';
 
 
 const prevState: State = loadState();
-const store: Store = createStore(reducers, prevState);
+const store: Store = createStore(reducers, prevState, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
@@ -27,6 +29,7 @@ ReactDOM.render(
           <Switch>
             <Route exact path='/podcast' component={Podcast}/>
             <Route exact path='/subscriptions' component={Subscriptions}/>
+            <Route exact path='/feed' component={Feed}/>
             <Route exact path='/search/:term' component={SearchResults}/>
           </Switch>
         </div>

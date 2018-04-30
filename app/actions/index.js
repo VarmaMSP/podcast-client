@@ -6,7 +6,9 @@ import type {
   SubscribeAction,
   UnsubscribeAction,
   UpdateUserFeedAction,
-  TruncateUserFeedAction
+  TruncateUserFeedAction,
+  BeginAddingNewSubscriptionAction,
+  CompleteAddingNewSubscriptionAction
 } from '../types/actions';
 
 export const selectPodcast = (podcast: Podcast): SelectPodcastAction => ({
@@ -37,4 +39,12 @@ export const updateUserFeed = (items: Array<AudioData>): UpdateUserFeedAction =>
 export const truncateUserFeed = (podcast: Podcast): TruncateUserFeedAction => ({
   type: 'TRUNCATE_USER_FEED',
   id: podcast.id
+});
+
+export const beginAddingNewSubscrition = (): BeginAddingNewSubscriptionAction => ({
+  type: 'BEGIN_ADDING_NEW_SUBSCRIPTION'
+});
+
+export const completeAddingNewSubscription = (): CompleteAddingNewSubscriptionAction => ({
+  type: 'COMPLETE_ADDING_NEW_SUBSCRIPTION'
 });

@@ -1,6 +1,12 @@
 // @flow
 import type {Podcast, Episode, AudioData} from '../types/podcast';
-import type {PodcastAction, NowPlayingAction, SubscriptionsAction, UserFeedAction} from '../types/actions';
+import type {
+  PodcastAction,
+  NowPlayingAction,
+  SubscriptionsAction,
+  UserFeedAction,
+  AddingNewSubscriptionAction
+} from '../types/actions';
 import {combineReducers} from 'redux';
 
 /* PODCAST REDUCER */
@@ -71,7 +77,19 @@ const userFeedReducer = (state: Array<AudioData> = [], action: UserFeedAction): 
     case 'UPDATE_USER_FEED':
       return merge(action.items, state, a => (new Date(a.episode.date)));
     case 'TRUNCATE_USER_FEED':
-      return state.filter(a => (a.podcast.id === action.id));
+      return state.filter(a => (a.podcast.id !== action.id));
+    default:
+      return state;
+  }
+}
+
+/* ADDING NEW SUBSCRIPTION REDUCER */
+const addingNewSubscriptionReducer = (state: boolean = false, action: AddingNewSubscriptionAction): boolean => {
+  switch(action.type) {
+    case 'BEGIN_ADDING_NEW_SUBSCRIPTION':
+      return true;
+    case 'COMPLETE_ADDING_NEW_SUBSCRIPTION':
+      return false;
     default:
       return state;
   }
@@ -81,5 +99,6 @@ export default combineReducers({
   podcast: podcastReducer,
   nowPlaying: nowPlayingReducer,
   subscriptions: subscriptionsReducer,
+  addingNewSubscription: addingNewSubscriptionReducer,
   userFeed: userFeedReducer
 });

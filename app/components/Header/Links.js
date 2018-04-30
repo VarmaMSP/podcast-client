@@ -14,7 +14,7 @@ const Links = ({history}: Props) => (
     <div className='link one' onClick={e => history.push('/subscriptions')}>
       Subscriptions
     </div>
-    <div className='link two' onClick={e => history.push('/subscriptions')}>
+    <div className='link two' onClick={e => history.push('/feed')}>
       Feed
     </div>
   </div>

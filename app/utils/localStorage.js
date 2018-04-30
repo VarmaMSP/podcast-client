@@ -9,6 +9,7 @@ export const loadState = (): State => {
       nowPlaying: undefined,
       podcast: undefined,
       subscriptions: subscriptions ? JSON.parse(subscriptions) : [],
+      addingNewSubscription: false,
       userFeed: userFeed ? JSON.parse(userFeed) : []
     };
   } catch (err) {
@@ -16,6 +17,7 @@ export const loadState = (): State => {
       nowPlaying: undefined,
       podcast: undefined,
       subscriptions: [],
+      addingNewSubscription: false,
       userFeed: []
     };
   }

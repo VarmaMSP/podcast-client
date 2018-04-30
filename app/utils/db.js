@@ -22,8 +22,16 @@ function getValue(store, key) {
   return new Promise((resolve, reject) => {
     let req = store.get(key);
     req.onsuccess = e => resolve(e.target.result);
-    req.onerror  = e => reject(e.target.errorCode);
+    req.onerror   = e => reject(e.target.errorCode);
   });
+}
+
+function deleteValue(store, key) {
+  return new Promise((resolve, reject) => {
+    let req = store.delete(key);
+    req.onsuccess = resolve;
+    req.onerror   = reject;
+  })
 }
 
 function updateValue(store, obj) {
@@ -37,6 +45,11 @@ function updateValue(store, obj) {
 export async function selectFeed(podcastId: number) {
   let db = await openDB();
   return await getValue(db.transaction(['feed']).objectStore('feed'), podcastId);
+}
+
+export async function deleteFeed(podcastId: number) {
+  let db = await openDB();
+  return await deleteValue(db.transaction(['feed'], 'readwrite').objectStore('feed'), podcastId);
 }
 
 export async function insertFeed(feed: FeedScheme) {

@@ -5,6 +5,7 @@ export type PodcastAction = SelectPodcastAction;
 export type NowPlayingAction = SelectEpisodeAction;
 export type SubscriptionsAction = SubscribeAction | UnsubscribeAction;
 export type UserFeedAction = UpdateUserFeedAction | TruncateUserFeedAction;
+export type AddingNewSubscriptionAction = BeginAddingNewSubscriptionAction | CompleteAddingNewSubscriptionAction;
 
 export type SelectPodcastAction = {|
   type: 'SELECT_PODCAST',
@@ -37,4 +38,12 @@ export type UpdateUserFeedAction = {|
 export type TruncateUserFeedAction = {|
   type: 'TRUNCATE_USER_FEED',
   id: number
+|};
+
+export type BeginAddingNewSubscriptionAction = {|
+  type: 'BEGIN_ADDING_NEW_SUBSCRIPTION'
+|};
+
+export type CompleteAddingNewSubscriptionAction = {|
+  type: 'COMPLETE_ADDING_NEW_SUBSCRIPTION'
 |};
