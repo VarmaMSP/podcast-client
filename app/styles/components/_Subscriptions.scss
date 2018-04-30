@@ -2,36 +2,58 @@ $subscription-height: 150px;
 $subscription-padding: 10px;
 $image-size: $subscription-height - 2 * $subscription-padding;
 
+.header {
+  height: 5rem;
+  line-height: 5rem;
+  font-size: 2rem;
+  font-weight: 900;
+  opacity: 0.6;
+}
+
 .subscriptions {
   width: 90%;
   margin: 0 auto;
 
-  .header {
-    height: 5rem;
-    line-height: 5rem;
-    font-size: 2rem;
-    font-weight: 900;
-    opacity: 0.7;
-  }
   .subscription {
     height: $subscription-height;
     padding: $subscription-padding ($subscription-padding + 5px);
     border-bottom: $border;
-    cursor: pointer;
     transition: 0.3s;
 
     img {
       float: left;
       width: $image-size;
       height: $image-size;
+      cursor: pointer;
+      box-shadow: $img-box-shadow;
+    }
+    .unsubscribe-button {
+      float: right;
+      width: 150px;
+      height: 2.2rem;
+      background-color: $primary-color;
+      line-height: 2.2rem;
+      text-align: center;
+      font-weight: 700;
+      opacity: 0.7;
+      border-radius: 2px;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+        box-shadow: $img-box-shadow;
+      }
     }
     .details {
       padding-left: $image-size + 20px;
+      padding-right: 150px;
 
       .title {
         font-size: 1.5rem;
         font-weight: 800;
         opacity: 0.65;
+        cursor: pointer;
       }
       .artist {
         margin-top: 10px;
@@ -45,7 +67,7 @@ $image-size: $subscription-height - 2 * $subscription-padding;
       }
     }
     &:hover {
-      background-color: darken($bg-color, 4%);
+      background-color: darken($bg-color, 1%);
     }
   }
 }

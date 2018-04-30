@@ -5,24 +5,29 @@ import type {Podcast} from '../../types/podcast';
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {unsubscribePodcast} from '../../actions/async';
 import {selectPodcast} from '../../actions/index';
 
 type Props = {|
   podcast: Podcast,
   history: RouterHistory,
-  selectPodcast: Podcast => Action
+  selectPodcast: Podcast => Action,
+  unsubscribe: Podcast => Action
 |};
 
-const Subscription = ({podcast, history, selectPodcast}: Props) => {
+const Subscription = ({podcast, history, selectPodcast, unsubscribe}: Props) => {
   let onSelect = (e: SyntheticEvent<HTMLElement>) => {
     selectPodcast(podcast);
     history.push('/podcast');
   };
   return (
-    <div className='subscription' onClick={onSelect}>
-      <img src={`${podcast.imageUrl}/200x200.jpg`}/>
+    <div className='subscription'>
+      <img src={`${podcast.imageUrl}/200x200.jpg`} onClick={onSelect}/>
+      <div className='unsubscribe-button' onClick={e => unsubscribe(podcast)}>
+        {'UNSUBSCRIBE'}
+      </div>
       <div className='details'>
-        <div className='title'>{podcast.title}</div>
+        <div className='title' onClick={onSelect}>{podcast.title}</div>
         <div className='artist'><small>{'by '}</small>{podcast.artist}</div>
       </div>
     </div>
@@ -30,7 +35,8 @@ const Subscription = ({podcast, history, selectPodcast}: Props) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  selectPodcast: (podcast: Podcast) => dispatch(selectPodcast(podcast))
+  selectPodcast: (podcast: Podcast) => dispatch(selectPodcast(podcast)),
+  unsubscribe: (podcast: Podcast) => dispatch(unsubscribePodcast(podcast))
 });
 
 export default connect(null, mapDispatchToProps)(Subscription);
