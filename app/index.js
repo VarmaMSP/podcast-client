@@ -15,6 +15,7 @@ import Podcast from './components/Podcast';
 import SearchResults from './components/SearchResults';
 import Subscriptions from './components/Subscriptions';
 import {loadState, saveState} from './utils/localStorage';
+import refreshFeed from './utils/refreshFeed';
 
 
 const prevState: State = loadState();
@@ -31,6 +32,7 @@ ReactDOM.render(
             <Route exact path='/subscriptions' component={Subscriptions}/>
             <Route exact path='/feed' component={Feed}/>
             <Route exact path='/search/:term' component={SearchResults}/>
+            <Redirect to='/feed'/>
           </Switch>
         </div>
         <input type='checkbox' style={{display: 'none'}} id='footer-state'/>
@@ -42,3 +44,6 @@ ReactDOM.render(
 );
 
 store.subscribe(() => saveState(store.getState()));
+
+refreshFeed(store)();
+setInterval(refreshFeed(store), 1800000);

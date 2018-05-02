@@ -2,7 +2,7 @@
 import type {Dispatch} from '../types/index';
 import type {Podcast} from '../types/podcast';
 
-import fetchEpisodes from '../api/rssFeed';
+import {cacheFeed} from '../api/rssFeed';
 import {deleteFeed} from '../utils/db';
 import {
   subscribe,
@@ -15,13 +15,14 @@ import {
 
 export const subscribeToPodcast = (podcast: Podcast) => (dispatch: Dispatch) => {
   dispatch(beginAddingNewSubscrition());
-  fetchEpisodes(podcast.feedUrl, podcast.id, true, true)
+  cacheFeed(podcast.feedUrl, podcast.id)
     .then(episodes => {
-      let items = episodes.map(e => ({podcast, episode: e}));
-      dispatch(updateUserFeed(items));
+      dispatch(updateUserFeed(episodes.map(e => ({podcast, episode: e}))));
       dispatch(subscribe(podcast));
       dispatch(completeAddingNewSubscription());
-    }, console.log);
+    }, (err) => {
+      dispatch(completeAddingNewSubscription());
+    });
 };
 
 export const unsubscribePodcast = (podcast: Podcast) => (dispatch: Dispatch) => {

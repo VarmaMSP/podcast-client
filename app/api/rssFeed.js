@@ -1,70 +1,69 @@
 // @flow
-import type {Episode} from '../types/podcast';
+import type {Episode, FeedScheme} from '../types/podcast';
 
 import request from 'request';
 import FeedParser from 'feedparser';
 import {insertFeed, selectFeed} from '../utils/db';
 
-/* Use IndexedDb as a Cache to store RSS Feed */
-export default async function fetchEpisodes(feedUrl: string, podcastId: number, cache: boolean = false, onlyNew: boolean = false) {
-  let persistedFeed = await selectFeed(podcastId);
+const CACHE_TIME = 15; //30 min
+
+/* Utility function to cache a podcast when subscribed */
+export async function cacheFeed(feedUrl: string, podcastId: number) {
   try {
-    let { status, lastModified, episodes } = await fetchFeed({
-      url: feedUrl,
-      method: 'GET',
-      headers: persistedFeed ? { 'if-modified-since': persistedFeed.lastModified } : {}
-    });
-    if (status === 200 && cache)
-      await insertFeed({podcastId, lastModified, episodes});
-    if (status === 304)
-      episodes = persistedFeed.episodes;
-    if (onlyNew && persistedFeed) {
-      let d = new Date(persistedFeed.lastModified);
-      for (let i = 0; i < episodes.length; ++i) {
-        if ((new Date(episodes[i].date)) < d)
-          return episodes.slice(0, i + 1);
-      }
-    }
-    return onlyNew ? episodes.slice(0, 4) : episodes;
+    let episodes = await fetchFeed({url: feedUrl, method: 'GET'});
+    await insertFeed({episodes, podcastId, lastModified: (new Date()).toString()});
+    return episodes.slice(0, 4);
   } catch(err) {
     throw err;
   }
-};
+}
+
+/* Returns the contents of the cache, if time since last modified is greater than CACHE_TIME */
+export async function fetchEpisodes(feedUrl: string, podcastId: number, isSubscribed: boolean, onlyNew: boolean = false) {
+  try {
+    if (!isSubscribed) {
+      return await fetchFeed({url: feedUrl, method: 'GET'});
+    } else {
+      let episodes: Array<Episode> = [];
+      let persistedFeed: FeedScheme = await selectFeed(podcastId);
+      if (timeElapsed(persistedFeed.lastModified) < CACHE_TIME) {
+        episodes = onlyNew ? [] : persistedFeed.episodes;
+      } else {
+        episodes = await fetchFeed({url: feedUrl, method: 'GET'});
+        await insertFeed({episodes, podcastId, lastModified: (new Date()).toString()});
+        episodes = onlyNew ? episodes.slice(0, (episodes.length - persistedFeed.episodes.length)) : episodes;
+      }
+      return episodes;
+    }
+  } catch(err) {
+    throw err;
+  }
+}
+
+function timeElapsed(dateString: string): number {
+  let d = new Date(dateString);
+  let D = new Date();
+  return Math.floor((D - d) / 60000);
+}
 
 /* Function to fetch RSS feed */
 type ReqOpts = {|
   url: string,
-  method?: string,
-  headers?: Object
+  method?: string
 |};
 
-type Feed = {|
-  status: string,
-  episodes: Array<Episode>,
-  lastModified: string,
-|};
-
-function fetchFeed(opts: ReqOpts): Promise<Feed> {
+function fetchFeed(opts: ReqOpts): Promise<Array<Episode>> {
   return new Promise((resolve, reject) => {
     try {
       opts.url += (new URL(opts.url)).hostname === 'feeds.feedburner.com' ? '?format=xml' : '';
       opts.url = 'http://cors-anywhere.herokuapp.com/' + opts.url;
 
-      const parser = new FeedParser();
-      const feedReq = request(opts);
-
-      let status: string           = '';
-      let lastModified: string     = '';
       let episodes: Array<Episode> = [];
+      let parser = new FeedParser();
 
-      feedReq
+      request(opts)
         .on('error', reject)
-        .on('response', ({statusCode, headers}) => {
-          status       = statusCode;
-          lastModified = headers['last-modified'];
-        })
         .pipe(parser);
-
       parser
         .on('readable', () => {
           let item;
@@ -83,22 +82,17 @@ function fetchFeed(opts: ReqOpts): Promise<Feed> {
             }
           }
         })
-        .on('end', () => resolve({status, episodes, lastModified}))
-        .on('error', () => status === 304 ? resolve({status, lastModified, episodes: []}) : reject());
+        .on('end', () => resolve(episodes))
+        .on('error', reject);
     } catch(err) {
       reject(err);
     }
   });
 }
 
-/* Utility Functions For FetchFeed function */
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-
-function formatDate(dateString: string): string {
+const formatDate = (dateString: string): string => {
   let date = new Date(dateString);
   return date ? `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}` : ''
 }
-
-function stripNonUTF8(str: string): string {
-  return str.replace(/[\u0800-\uFFFF]/g, '');
-}
+const stripNonUTF8 = (str: string) => str.replace(/[\u0800-\uFFFF]/g, '');

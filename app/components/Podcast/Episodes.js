@@ -5,11 +5,11 @@ import type {Dispatch, Action} from '../../types/index';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import fetchEpisodes from '../../api/rssFeed';
+import {fetchEpisodes} from '../../api/rssFeed';
 import {selectEpisode} from '../../actions/index';
 
 type Props = {|
-  cache: boolean,   // If set, response feed will be cached.
+  isSubscribed: boolean,
   podcast: Podcast,
   playEpisode: (Podcast, Episode) => Action
 |};
@@ -35,8 +35,8 @@ class Episodes extends Component<Props, State> {
   }
 
   componentDidMount() {
-    let { podcast, cache } = this.props;
-    fetchEpisodes(podcast.feedUrl, podcast.id, cache)
+    let { podcast, isSubscribed } = this.props;
+    fetchEpisodes(podcast.feedUrl, podcast.id, isSubscribed)
       .then((episodes) => this.setState({
         loading: false,
         episodes
