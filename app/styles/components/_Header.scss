@@ -36,6 +36,9 @@ header {
     &:hover {
       opacity: 1;
     }
+    &.active {
+      border-bottom: 3px solid darken($primary-color, 70%);
+    }
   }
   // SEARCH INPUT
   .search {

@@ -9,15 +9,20 @@ type Props = {|
   history: RouterHistory
 |}
 
-const Links = ({history}: Props) => (
-  <div className='links'>
-    <div className='link one' onClick={e => history.push('/subscriptions')}>
-      Subscriptions
+const Links = ({history}: Props) => {
+  let pathname = history.location ? history.location.pathname : undefined;
+  return (
+    <div className='links'>
+      <div className={`link one ${pathname === '/subscriptions' ? 'active' : ''}`}
+        onClick={e => pathname !== '/subscriptions' ? history.push('/subscriptions') : undefined}>
+        Subscriptions
+      </div>
+      <div className={`link two ${pathname === '/feed' ? 'active' : ''}`}
+        onClick={e => pathname !== '/feed' ? history.push('/feed') : undefined}>
+        Feed
+      </div>
     </div>
-    <div className='link two' onClick={e => history.push('/feed')}>
-      Feed
-    </div>
-  </div>
-);
+  )
+};
 
 export default withRouter(Links);
