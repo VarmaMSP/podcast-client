@@ -46,4 +46,4 @@ ReactDOM.render(
 store.subscribe(() => saveState(store.getState()));
 
 refreshFeed(store)();
-setInterval(refreshFeed(store), 1800000);
+setInterval(refreshFeed(store), 900000);
