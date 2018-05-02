@@ -1,5 +1,8 @@
 // @flow
 import type {Store, State} from './types/index';
+
+import 'regenerator-runtime/runtime';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';

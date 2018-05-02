@@ -17,7 +17,7 @@ const jsConfig = env => ({
         test: /\.js$/,
         loader: 'babel-loader',
         options: {
-          presets: ['react', 'es2015']
+          presets: ['env', 'react', 'es2015']
         }
       }
     ]
