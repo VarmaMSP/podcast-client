@@ -5,7 +5,7 @@ import type {Dispatch, Action} from '../../types/index';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {fetchEpisodes} from '../../api/rssFeed';
+import {fetchFeed} from '../../api/rssFeed';
 import {selectEpisode} from '../../actions/index';
 
 type Props = {|
@@ -36,7 +36,7 @@ class Episodes extends Component<Props, State> {
 
   componentDidMount() {
     let { podcast, isSubscribed } = this.props;
-    fetchEpisodes(podcast.feedUrl, podcast.id, isSubscribed)
+    fetchFeed(podcast)
       .then((episodes) => this.setState({
         loading: false,
         episodes

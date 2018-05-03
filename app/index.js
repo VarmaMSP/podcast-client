@@ -18,7 +18,7 @@ import Podcast from './components/Podcast';
 import SearchResults from './components/SearchResults';
 import Subscriptions from './components/Subscriptions';
 import {loadState, saveState} from './utils/localStorage';
-import refreshFeed from './utils/refreshFeed';
+import {refreshUserFeed} from './api/rssFeed';
 
 
 const prevState: State = loadState();
@@ -48,5 +48,5 @@ ReactDOM.render(
 
 store.subscribe(() => saveState(store.getState()));
 
-refreshFeed(store)();
-setInterval(refreshFeed(store), 900000);
+refreshUserFeed(store)();
+setInterval(refreshUserFeed(store), 900000);

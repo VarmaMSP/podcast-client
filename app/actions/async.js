@@ -2,8 +2,8 @@
 import type {Dispatch} from '../types/index';
 import type {Podcast} from '../types/podcast';
 
-import {cacheFeed} from '../api/rssFeed';
-import {deleteFeed} from '../utils/db';
+import {getEpisodes} from '../api/rssFeed';
+import {insertFeed, deleteFeed} from '../utils/db';
 import {
   subscribe,
   unsubscribe,
@@ -15,14 +15,16 @@ import {
 
 export const subscribeToPodcast = (podcast: Podcast) => (dispatch: Dispatch) => {
   dispatch(beginAddingNewSubscrition());
-  cacheFeed(podcast.feedUrl, podcast.id)
+  getEpisodes({url: podcast.feedUrl, method: 'GET'})
     .then(episodes => {
-      dispatch(updateUserFeed(episodes.map(e => ({podcast, episode: e}))));
+      dispatch(updateUserFeed(episodes.slice(0, 4).map(e => ({episode: e, podcast}))));
+      return insertFeed({episodes, podcastId: podcast.id, lastModified: (new Date()).toString()});
+    })
+    .then(() => {
       dispatch(subscribe(podcast));
       dispatch(completeAddingNewSubscription());
-    }, (err) => {
-      dispatch(completeAddingNewSubscription());
-    });
+    })
+    .catch(console.log);
 };
 
 export const unsubscribePodcast = (podcast: Podcast) => (dispatch: Dispatch) => {
@@ -30,5 +32,6 @@ export const unsubscribePodcast = (podcast: Podcast) => (dispatch: Dispatch) => 
     .then(() => {
       dispatch(truncateUserFeed(podcast));
       dispatch(unsubscribe(podcast));
-    }, console.log);
+    })
+    .catch(console.log);
 };
