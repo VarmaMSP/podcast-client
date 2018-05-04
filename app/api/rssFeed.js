@@ -6,9 +6,9 @@ import request from 'request';
 import FeedParser from 'feedparser';
 import {insertFeed, selectFeed} from '../utils/db';
 import {updateUserFeed} from '../actions/index';
+import {stripNonUTF8, timeElapsed} from '../utils/utils';
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-const CACHE_TIME = 15; //30 min
+const CACHE_TIME = 15; //15 min
 
 /*** Refresh user feed (subscriptions) ***/
 export function refreshUserFeed(store: Store) {
@@ -67,7 +67,7 @@ export function getEpisodes(opts: {| url: string, method?: string |}): Promise<A
               let episode: Episode = {
                 title       : stripNonUTF8(item.title),
                 description : stripNonUTF8(item.description),
-                date        : formatDate(item.date),
+                date        : item.date,
                 link        : item.enclosures[0].url,
                 fileType    : item.enclosures[0].type,
               };
@@ -83,22 +83,4 @@ export function getEpisodes(opts: {| url: string, method?: string |}): Promise<A
       reject(err);
     }
   });
-}
-
-/**
-*** Utility functions
-**/
-function timeElapsed(dateString: string): number {
-  let d = new Date(dateString);
-  let D = new Date();
-  return Math.floor((D - d) / 60000);
-}
-
-function formatDate(dateString: string): string {
-  let date = new Date(dateString);
-  return date ? `${date.getDate()} ${MONTHS[date.getMonth()]}, ${date.getFullYear()}` : '';
-}
-
-function stripNonUTF8(str: string) {
-  return str.replace(/[\u0800-\uFFFF]/g, '');
 }

@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 
 import {fetchFeed} from '../../api/rssFeed';
 import {selectEpisode} from '../../actions/index';
+import {formatDate} from '../../utils/utils';
 
 type Props = {|
   isSubscribed: boolean,
@@ -98,7 +99,7 @@ const renderEpisode = (onPlay, onDescToggle, descId) => (episode: Episode, i: nu
     <img className='play-icon' src='/img/play-circle.png' onClick={onPlay(episode)}/>
     <div className='title'>{episode.title}</div>
     <div className='meta'>
-      <span className='date'>{episode.date}</span>
+      <span className='date'>{formatDate(episode.date)}</span>
       <span className='dot'> • </span>
       <span className='desc-toggle' onClick={onDescToggle(i)}>
         { descId === i ? 'Hide description' : 'Show description' }

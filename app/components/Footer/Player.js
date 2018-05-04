@@ -1,6 +1,7 @@
 // @flow
 import type {Episode} from '../../types/podcast';
 import React, {Component} from 'react';
+import {formatDate} from '../../utils/utils';
 
 type Props = {|
   podcastTitle: string,
@@ -146,7 +147,7 @@ export default class Audio extends Component<Props, State> {
             <div className='now-playing'>Now Playing</div>
             <div className='episode-title'>{title}</div>
             <div className='episode-details'>
-              <span className='date'>{date}</span>
+              <span className='date'>{formatDate(date)}</span>
               <span className='dot'> • </span>
               <span className='podcast-title'>{podcastTitle}</span>
             </div>
