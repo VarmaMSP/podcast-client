@@ -20,15 +20,10 @@ const Podcast = ({ podcast, subscribed, isSubscribing }: Props) => podcast
     </div>
   : <div> Search for your favourite podcasts.</div>
 
-const mapStatetoProps = ({ podcast, subscriptions, addingNewSubscription }: State) => {
-  let subscribed = false;
-  if (podcast) {
-    let { id } = podcast;
-    for (let i = 0; i < subscriptions.length; ++i) {
-      if (subscriptions[i].id === id) subscribed = true;
-    }
-  }
-  return { podcast, subscribed, isSubscribing: addingNewSubscription }
-};
+const mapStatetoProps = ({ podcast, subscriptions, addingNewSubscription }: State) => ({
+  podcast,
+  subscribed: podcast && subscriptions.some(s => (s.id === podcast.id)),
+  isSubscribing: addingNewSubscription
+});
 
 export default connect(mapStatetoProps, null)(Podcast);

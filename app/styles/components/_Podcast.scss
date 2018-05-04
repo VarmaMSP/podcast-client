@@ -46,14 +46,14 @@
   .episodes {
     width: 70%;
     height: 83vh;
-    overflow: scroll;
+    overflow-y: scroll;
 
     .loader {
       @include loader(relative, 5rem, 0.5rem, darken($primary-color, 20%));
     }
     // INDIVIDUAL EPISODE
     .episode {
-      padding: 5px;
+      padding: 5px 10px 5px 5px;
       border-bottom: $border;
 
       .play-icon {
@@ -107,7 +107,7 @@
       .description {
         height: 0;
         font-size: 0.9rem;
-        overflow: scroll;
+        overflow-y: scroll;
         text-align: left;
         opacity: 0.6;
         font-weight: 500;
