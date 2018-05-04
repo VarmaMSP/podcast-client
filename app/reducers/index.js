@@ -5,7 +5,8 @@ import type {
   NowPlayingAction,
   SubscriptionsAction,
   UserFeedAction,
-  AddingNewSubscriptionAction
+  AddingNewSubscriptionAction,
+  FeedNotificationAction
 } from '../types/actions';
 import {combineReducers} from 'redux';
 
@@ -95,10 +96,23 @@ const addingNewSubscriptionReducer = (state: boolean = false, action: AddingNewS
   }
 }
 
+/* FEED NOTIFICATION */
+const feedNotificationReducer = (state: boolean = false, action: FeedNotificationAction): boolean => {
+  switch(action.type) {
+    case 'SHOW_FEED_NOTIFICATION':
+      return true;
+    case 'HIDE_FEED_NOTIFICATION':
+      return false;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   podcast: podcastReducer,
   nowPlaying: nowPlayingReducer,
   subscriptions: subscriptionsReducer,
   addingNewSubscription: addingNewSubscriptionReducer,
-  userFeed: userFeedReducer
+  userFeed: userFeedReducer,
+  feedNotification: feedNotificationReducer
 });

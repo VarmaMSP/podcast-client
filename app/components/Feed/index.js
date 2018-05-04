@@ -4,11 +4,13 @@ import type {Podcast, Episode, AudioData} from '../../types/podcast';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {selectEpisode} from '../../actions/index';
+import {selectEpisode, hideFeedNotification} from '../../actions/index';
+import {formatDate} from '../../utils/utils';
 
 type Props = {|
   feed: Array<AudioData>,
-  playEpisode: (Podcast, Episode) => Action
+  playEpisode: (Podcast, Episode) => Action,
+  hideFeedNotification: () => Action
 |};
 
 type State = {|
@@ -23,6 +25,10 @@ class Feed extends Component<Props, State> {
       descId: undefined,
       count: 10
     };
+  }
+
+  componentDidMount() {
+    this.props.hideFeedNotification();
   }
 
   handleDescToggle(id: number) {
@@ -75,7 +81,7 @@ const renderFeedItem = (onPlay, onDescToggle, descId) => (feed: AudioData, i: nu
       <div className='episode-title'>{feed.episode.title}</div>
       <div className='podcast-title'>{feed.podcast.title}</div>
       <div className='meta'>
-        <span className='date'>{feed.episode.date}</span>
+        <span className='date'>{formatDate(feed.episode.date)}</span>
         <span className='dot'> • </span>
         <span className='desc-toggle' onClick={onDescToggle(i)}>
           { descId === i ? 'Hide description' : 'Show description' }
@@ -93,7 +99,8 @@ const mapStatetoProps = ({userFeed}: ReduxState) => ({
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) => ({
-  playEpisode: (p: Podcast, e: Episode) => dispatch(selectEpisode(p, e))
+  playEpisode: (p: Podcast, e: Episode) => dispatch(selectEpisode(p, e)),
+  hideFeedNotification: () => dispatch(hideFeedNotification())
 });
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(Feed);

@@ -33,6 +33,15 @@ header {
     cursor: pointer;
     transition: 0.3s;
 
+    .notify {
+      margin-left: 3px;
+      display: inline;
+      vertical-align: top;
+      font-size: 2rem;
+      color: darken(red, 50%);
+      animation: blink 1s linear infinite;
+    }
+
     &:hover {
       opacity: 1;
     }

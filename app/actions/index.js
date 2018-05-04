@@ -8,7 +8,9 @@ import type {
   UpdateUserFeedAction,
   TruncateUserFeedAction,
   BeginAddingNewSubscriptionAction,
-  CompleteAddingNewSubscriptionAction
+  CompleteAddingNewSubscriptionAction,
+  ShowFeedNotificationAction,
+  HideFeedNotificationAction
 } from '../types/actions';
 
 export const selectPodcast = (podcast: Podcast): SelectPodcastAction => ({
@@ -47,4 +49,12 @@ export const beginAddingNewSubscrition = (): BeginAddingNewSubscriptionAction =>
 
 export const completeAddingNewSubscription = (): CompleteAddingNewSubscriptionAction => ({
   type: 'COMPLETE_ADDING_NEW_SUBSCRIPTION'
+});
+
+export const showFeedNotification = (): ShowFeedNotificationAction => ({
+  type: 'SHOW_FEED_NOTIFICATION'
+});
+
+export const hideFeedNotification = (): HideFeedNotificationAction => ({
+  type: 'HIDE_FEED_NOTIFICATION'
 });

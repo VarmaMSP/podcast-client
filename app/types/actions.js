@@ -6,6 +6,7 @@ export type NowPlayingAction = SelectEpisodeAction;
 export type SubscriptionsAction = SubscribeAction | UnsubscribeAction;
 export type UserFeedAction = UpdateUserFeedAction | TruncateUserFeedAction;
 export type AddingNewSubscriptionAction = BeginAddingNewSubscriptionAction | CompleteAddingNewSubscriptionAction;
+export type FeedNotificationAction = ShowFeedNotificationAction | HideFeedNotificationAction;
 
 export type SelectPodcastAction = {|
   type: 'SELECT_PODCAST',
@@ -14,10 +15,7 @@ export type SelectPodcastAction = {|
 
 export type SelectEpisodeAction = {|
   type: 'SELECT_EPISODE',
-  data: {
-    episode: Episode,
-    podcast: Podcast
-  }
+  data: AudioData
 |};
 
 export type SubscribeAction = {|
@@ -46,4 +44,12 @@ export type BeginAddingNewSubscriptionAction = {|
 
 export type CompleteAddingNewSubscriptionAction = {|
   type: 'COMPLETE_ADDING_NEW_SUBSCRIPTION'
+|};
+
+export type ShowFeedNotificationAction = {|
+  type: 'SHOW_FEED_NOTIFICATION'
+|};
+
+export type HideFeedNotificationAction = {|
+  type: 'HIDE_FEED_NOTIFICATION'
 |};
