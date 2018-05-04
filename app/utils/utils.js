@@ -1,4 +1,6 @@
 // @flow
+import type {Episode} from '../types/podcast';
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 export function timeElapsed(dateString: string): number {
@@ -14,4 +16,15 @@ export function formatDate(dateString: string): string {
 
 export function stripNonUTF8(str: string) {
   return str.replace(/[\u0800-\uFFFF]/g, '');
+}
+
+export function getEpisodesAfter(dateString: string, episodes: Array<Episode>): Array<Episode> {
+  let sinceDate = new Date(dateString);
+  for (let i = 0; i < episodes.length; ++i) {
+    let episodeDate = new Date(episodes[i].date);
+    if (episodeDate < sinceDate) {
+      return episodes.slice(0, i);
+    }
+  }
+  return [];
 }
