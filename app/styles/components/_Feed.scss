@@ -36,11 +36,21 @@ $feed-item-padding: 10px;
     transition: 0.3s;
 
     .play-icon {
-      float: right;
       width: 60px;
       height: 60px;
       opacity: 0.5;
       cursor: pointer;
+    }
+    .tag {
+      width: 60px;
+      height: 1.1rem;
+      margin-top: 15px;
+      line-height: 1.1rem;
+      font-size: 1rem;
+      text-align: center;
+      color: darken($primary-color, 60%);
+      border: 1px solid darken($primary-color, 50%);
+      border-radius: 2px;
     }
     .albumart {
       float: left;

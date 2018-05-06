@@ -22,7 +22,7 @@ export function refreshUserFeed(store: Store) {
         let cache: FeedScheme = persistedFeeds[i];
         if (timeElapsed(cache.lastModified) >= CACHE_TIME) {
           let episodes   = await getEpisodes({url: subscriptions[i].feedUrl, method: 'GET'});
-          let latestFeed = getEpisodesAfter(cache.lastModified, episodes).map(episode => ({podcast: subscriptions[i], episode}));
+          let latestFeed = getEpisodesAfter(cache.episodes[0].date, episodes).map(episode => ({podcast: subscriptions[i], episode}));
           await insertFeed({episodes, podcastId: subscriptions[i].id, lastModified: (new Date()).toString()});
           if (latestFeed.length > 0) {
             dispatch(updateUserFeed(latestFeed));

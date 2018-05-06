@@ -5,7 +5,7 @@ import type {Podcast, Episode, AudioData} from '../../types/podcast';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {selectEpisode, hideFeedNotification} from '../../actions/index';
-import {formatDate} from '../../utils/utils';
+import {formatDate, timeElapsed} from '../../utils/utils';
 
 type Props = {|
   feed: Array<AudioData>,
@@ -76,7 +76,13 @@ class Feed extends Component<Props, State> {
 const renderFeedItem = (onPlay, onDescToggle, descId) => (feed: AudioData, i: number) => (
   <div className={'feed-item ' + (i % 2 ? 'dark' : 'light') + (descId === i ? ' show' : '')} key={i}>
     <img className='albumart' src={feed.podcast.imageUrl + '/200x200.jpg'}/>
-    <img className='play-icon' src='/img/play-circle.png' onClick={onPlay(feed)}/>
+    <div style={{float: 'right'}}>
+      <img className='play-icon' src='/img/play-circle.png' onClick={onPlay(feed)}/>
+      { timeElapsed(feed.episode.date) <= (24 * 60)
+      ? <div className='tag'>{'new'}</div>
+      : undefined
+      }
+    </div>
     <div className='details'>
       <div className='episode-title'>{feed.episode.title}</div>
       <div className='podcast-title'>{feed.podcast.title}</div>

@@ -29,7 +29,7 @@ class Search extends Component<Props, State> {
     let searchTerm = this.state.searchTerm.trim();
     if (searchTerm) {
       let { history } = this.props;
-      history.push(`/search/${searchTerm}`);
+      history.push(`/results?q=${searchTerm}`);
       this.setState({ searchTerm: ''});
     }
   }

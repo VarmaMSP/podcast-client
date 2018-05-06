@@ -6,6 +6,7 @@ import type {Action, Dispatch} from '../../types/index';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import fetchPodcasts from '../../api/search';
+import {parseQueryString} from '../../utils/utils';
 import Result from './Result';
 
 type Props = {|
@@ -29,8 +30,8 @@ class SearchResults extends Component<Props, State> {
     };
   }
 
-  handleResultsFetch(props: Props) {
-    let { term } = props.match.params;
+  handleResultsFetch({history}: Props) {
+    let {q: term} = parseQueryString(history.location.search);
     if (term) {
       fetchPodcasts(term, 50)
         .then(results => this.setState({

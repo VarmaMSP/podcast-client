@@ -34,7 +34,7 @@ ReactDOM.render(
             <Route exact path='/podcast' component={Podcast}/>
             <Route exact path='/subscriptions' component={Subscriptions}/>
             <Route exact path='/feed' component={Feed}/>
-            <Route exact path='/search/:term' component={SearchResults}/>
+            <Route exact path='/results' component={SearchResults}/>
             <Redirect to='/feed'/>
           </Switch>
         </div>
