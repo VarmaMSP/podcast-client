@@ -20,7 +20,7 @@ const Subscriptions = ({subscriptions, history} : Props) => (
         <div className='header'>{'Subscriptions'}</div>
         {subscriptions.map((p, i) => <Subscription key={i} podcast={p} history={history}/>)}
       </div>
-    : <div className='header'>
+    : <div className='header info'>
         {"You have't subscribed to any podcasts."}
       </div>
 );

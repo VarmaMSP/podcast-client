@@ -11,6 +11,7 @@ import {Provider} from 'react-redux';
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import reducers from './reducers';
+import Home from './components/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Feed from './components/Feed';
@@ -31,6 +32,7 @@ ReactDOM.render(
         <Header/>
         <div className='main-content container'>
           <Switch>
+            <Route exact path='/' component={Home}/>
             <Route exact path='/podcast' component={Podcast}/>
             <Route exact path='/subscriptions' component={Subscriptions}/>
             <Route exact path='/feed' component={Feed}/>

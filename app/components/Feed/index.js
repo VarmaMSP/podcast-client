@@ -66,8 +66,8 @@ class Feed extends Component<Props, State> {
             : undefined
             }
           </div>
-        : <div className='header'>
-            {"Your Feed is Empty, subscribe to podcasts to get started"}
+        : <div className='header info'>
+            {"Your Feed is Empty, subscribe to a podcast to get started"}
           </div>
     )
   }

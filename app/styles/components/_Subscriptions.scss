@@ -10,6 +10,11 @@ $image-size: $subscription-height - 2 * $subscription-padding;
   opacity: 0.6;
 }
 
+.info {
+  margin-top: 5rem;
+  text-align: center;
+}
+
 .subscriptions {
   width: 90%;
   margin: 0 auto;
