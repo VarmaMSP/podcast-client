@@ -7,6 +7,7 @@ $result-height: 20rem;
   grid-auto-rows: $result-height;
   grid-gap: 1rem 1.7rem;
   padding: 1rem 0;
+  justify-content: center;
 
   .loader {
     @include loader(fixed, 5rem, 0.5rem, darken($primary-color, 20%), darken($bg-color, 3%));
