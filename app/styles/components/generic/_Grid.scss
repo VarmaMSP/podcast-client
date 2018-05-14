@@ -1,0 +1,46 @@
+$grid-item-width: 190px;
+$grid-item-height: 260px;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, $grid-item-width);
+  grid-auto-rows: $grid-item-height;
+  grid-gap: 15px 25px;
+  justify-content: center;
+}
+
+.grid-item {
+  text-align: left;
+  line-height: 1.1rem;
+  box-shadow: 0px 1px 1px 1px rgba(159,167,194,0.2);
+  background-color: darken($bg-color, 1%);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.grid-item:hover {
+  box-shadow: 0px 1px 1px 1px rgba(159,167,194,0.4);
+}
+.grid-item > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.grid-item > .item-header,
+.grid-item > .item-description {
+  padding: 0.2rem 0.2rem 0 0.2rem;
+  overflow: hidden;
+  white-space: pre-line;
+  text-overflow: ellipsis;
+}
+.grid-item > .item-header {
+  height: 2.4rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  opacity: 0.8;
+}
+.grid-item > .item-description {
+  height: 1.3rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  opacity: 0.5;
+}

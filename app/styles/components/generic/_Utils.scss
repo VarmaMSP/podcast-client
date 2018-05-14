@@ -1,0 +1,3 @@
+.loader {
+  @include loader(fixed, 5rem, 0.5rem, darken($primary-color, 20%), darken($bg-color, 3%));
+}
