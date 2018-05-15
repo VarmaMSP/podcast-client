@@ -3,6 +3,7 @@ import type {Podcast as PodcastType} from '../../types/podcast';
 import type {State} from '../../types/index';
 import React from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 
 import Details from './Details';
 import Episodes from './Episodes';
@@ -18,7 +19,7 @@ const Podcast = ({ podcast, subscribed, isSubscribing }: Props) => podcast
       <Details podcast={podcast} subscribed={subscribed} isSubscribing={isSubscribing}/>
       <Episodes podcast={podcast} cache={subscribed}/>
     </div>
-  : <div> Search for your favourite podcasts.</div>
+  : <Redirect to='/feed'/>
 
 const mapStatetoProps = ({ podcast, subscriptions, addingNewSubscription }: State) => ({
   podcast,
