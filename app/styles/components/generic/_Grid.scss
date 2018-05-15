@@ -10,24 +10,25 @@ $grid-item-height: 260px;
 }
 
 .grid-item {
-  text-align: left;
-  line-height: 1.1rem;
   box-shadow: 0px 1px 1px 1px rgba(159,167,194,0.2);
   background-color: darken($bg-color, 1%);
   cursor: pointer;
   transition: 0.2s;
 }
 .grid-item:hover {
-  box-shadow: 0px 1px 1px 1px rgba(159,167,194,0.4);
+  box-shadow: 0px 1px 1px 1px rgba(159,167,194,0.6);
 }
 .grid-item > img {
   display: block;
   width: 100%;
   height: auto;
+  margin-bottom: 3px;
 }
 .grid-item > .item-header,
 .grid-item > .item-description {
-  padding: 0.2rem 0.2rem 0 0.2rem;
+  padding: 0.2rem 0.4rem 0 0.4rem;
+  text-align: left;
+  line-height: 1.1rem;
   overflow: hidden;
   white-space: pre-line;
   text-overflow: ellipsis;

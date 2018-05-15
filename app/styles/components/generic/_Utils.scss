@@ -1,3 +1,11 @@
 .loader {
   @include loader(fixed, 5rem, 0.5rem, darken($primary-color, 20%), darken($bg-color, 3%));
 }
+
+.message {
+  height: 5rem;
+  line-height: 5rem;
+  font-size: 2rem;
+  font-weight: 900;
+  opacity: 0.6;
+}

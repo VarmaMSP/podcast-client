@@ -1,30 +1,26 @@
 // @flow
 import React from 'react';
-import Container from './Container';
 
-/**** GRID COMPONENT ****/
+/**** GRID ****/
 type Props = {|
-  children: any
+  children: Array<{|
+    img: string,
+    header: string,
+    description: string,
+    onClick: SyntheticEvent<HTMLElement> => void
+  |}>
 |};
 
 export const Grid = ({children}: Props) => (
   <div className='grid'>
-    {children}
-  </div>
-);
-
-/**** GRID ITEM COMPONENT ****/
-type Props_ = {|
-  img: string,
-  header?: string,
-  description?: string,
-  onClick: SyntheticEvent<HTMLElement> => void
-|}
-
-export const GridItem = ({img, header, description, onClick}: Props_) => (
-  <div className='grid-item' onClick={onClick}>
-    <img src={img}/>
-    <div className='item-header'>{header}</div>
-    <div className='item-description'>{description}</div>
+    {
+      children.map(({img, header, description, onClick}, i) => (
+        <div className='grid-item' key={i} onClick={onClick}>
+          <img src={img}/>
+          <div className='item-header'>{header}</div>
+          <div className='item-description'>{description}</div>
+        </div>
+      ))
+    }
   </div>
 );

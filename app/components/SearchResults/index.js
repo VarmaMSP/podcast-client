@@ -9,8 +9,8 @@ import {withRouter} from 'react-router-dom';
 import fetchPodcasts from '../../api/search';
 import {selectPodcast} from '../../actions/index';
 import {parseQueryString} from '../../utils/utils';
-import {Grid, GridItem} from '../generic/Grid';
-import {Loader} from '../generic/Utils';
+import {Grid} from '../generic/Grid';
+import {Loader, Message} from '../generic/Utils';
 
 type Props = {|
   history: RouterHistory,
@@ -31,6 +31,15 @@ class SearchResults extends Component<Props, State> {
       loading: true,
       error: false
     };
+  }
+
+  componentDidMount() {
+    this.handleResultsFetch.call(this, this.props);
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    this.setState({ results: undefined, loading: true, error: false });
+    this.handleResultsFetch.call(this, nextProps);
   }
 
   handleResultsFetch({history}: Props) {
@@ -57,31 +66,25 @@ class SearchResults extends Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-    this.handleResultsFetch.call(this, this.props);
-  }
-
-  componentWillReceiveProps(nextProps: Props) {
-    this.setState({ results: undefined, loading: true, error: false });
-    this.handleResultsFetch.call(this, nextProps);
-  }
-
   render() {
     let { history } = this.props;
     let { error, loading, results } = this.state;
     let onSelect = this.handleResultSelect.bind(this);
-    if (loading) {
-      return <Loader/>
-    } else if (error) {
-      return <div className='error'>No Results Found</div>
-    } else {
-      let gridItems = results.map((r, i) => (
-        <GridItem key={i} img={r.imageUrl + '/200x200.jpg'}
-          header={r.title} description={r.artist} onClick={onSelect(r)}
-        />
-      ));
-      return <Grid>{gridItems}</Grid>
-    }
+    return loading
+      ? <Loader/>
+      : error
+        ? <Message content='No Results Found'/>
+        : <div>
+            <Message content='Search Results'/>
+            <Grid>{
+              results.map(r => ({
+                img: r.imageUrl + '/200x200.jpg',
+                header: r.title,
+                description: r.artist,
+                onClick: onSelect(r)
+              }))
+            }</Grid>
+          </div>
   }
 }
 

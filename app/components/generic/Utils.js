@@ -2,7 +2,11 @@
 import React from 'react';
 
 // Spinner
-export const Loader = () => <div className='loader'></div>;
+export const Loader = () =>
+  <div className='loader'></div>;
 
-// Error Text
-export const Error = () => <div className='error'></div>;
+// Message
+export const Message = (props: {| content: string |}) =>
+  <div className='message'>
+    {props.content}
+  </div>
