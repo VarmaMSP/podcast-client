@@ -1,159 +1,154 @@
 .podcast {
+  display: grid;
+  grid-template-columns: 30% 70%;
   margin-top: 10px;
+}
 
-  // PODCAST DETAILS
-  .details {
-    float: left;
-    width: 30%;
-    padding-right: 10px;
+/**
+--- Details ----------------------------------------
+**/
+.podcast .details {
+  position: sticky;
+  top: $header-height + 10px;
+  padding-right: 10px;
+}
 
-    img {
-      width: 90%;
-      height: auto;
-      margin: 0 5%;
-      box-shadow: $img-box-shadow;
-    }
-    .title {
-      margin-top: 1rem;
-      font-size: 1.5rem;
-      font-weight: 900;
-      text-align: center;
-      opacity: 0.7;
-    }
-    .subscription-button {
-      width: 60%;
-      height: 3rem;
-      margin: 2rem auto;
-      border-radius: 3px;
-      line-height: 3rem;
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: 900;
-      opacity: 0.7;
-      cursor: pointer;
-      transition: 0.3s;
+.details > img {
+  width: 90%;
+  height: auto;
+  margin: 0 5%;
+  box-shadow: $img-box-shadow;
+}
+.details > .title {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: center;
+  opacity: 0.7;
+}
+.details > .subscription-button {
+  width: 60%;
+  height: 3rem;
+  margin: 2rem auto;
+  border-radius: 3px;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 900;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.details > .subscription-button.active {
+  background-color: darken($primary-color, 10%);
+}
+.details > .subscription-button.inactive {
+  background-color: darken($bg-color, 10%);
+}
+.details > .subscription-button:hover {
+  opacity: 0.9;
+  box-shadow: $img-box-shadow;
+}
 
-      &.active { background-color: darken($primary-color, 10%); }
-      &.inactive { background-color: darken($bg-color, 10%); }
-      &:hover {
-        opacity: 0.9;
-        box-shadow: $img-box-shadow;
-      }
+/**
+--- Episodes List ----------------------------------------
+**/
+.episodes > .loader {
+  @include loader(relative, 5rem, 0.5rem, darken($primary-color, 20%));
+}
+
+//
+.episodes .load-more {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.5;
+  padding-top: 20px;
+  transition: 0.3s;
+}
+.episodes .load-more:hover {
+  background-color: darken($bg-color, 4%);
+  text-decoration: underline;
+  opacity: 0.6;
+}
+
+.episode {
+  padding: 5px 10px 5px 5px;
+  border-bottom: $border;
+  background-color: lighten($bg-color, 1%);
+  transition: 0.3s;
+}
+.episode:nth-child(odd) {
+  background-color: $bg-color;
+}
+.episode:hover {
+  background-color: darken($bg-color, 2%);
+}
+
+.episode > .play-icon {
+  float: right;
+  width: 45px;
+  height: auto;
+  opacity: 0.55;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.episode > .play-icon:hover {
+  opacity: 0.8;
+}
+.episode > .title {
+  line-height: 2rem;
+  height: 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.episode > .meta {
+  margin-top: -5px;
+  margin-right: 45px;
+  opacity: 0.5;
+
+  .date, .desc-toggle {
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .dot {
+    font-size: 2rem;
+    vertical-align: middle;
+  }
+  .desc-toggle {
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
+}
+.episode > .description {
+  height: 0;
+  font-size: 0.9rem;
+  overflow-y: scroll;
+  text-align: left;
+  opacity: 0.6;
+  font-weight: 500;
+  transition: 0.3s;
 
-  // EPISODES
-  .episodes {
-    width: 70%;
-    height: 83vh;
-    overflow-y: scroll;
-
-    .loader {
-      @include loader(relative, 5rem, 0.5rem, darken($primary-color, 20%));
-    }
-    // INDIVIDUAL EPISODE
-    .episode {
-      padding: 5px 10px 5px 5px;
-      border-bottom: $border;
-
-      .play-icon {
-        float: right;
-        width: 45px;
-        height: auto;
-        opacity: 0.55;
-        margin-top: 10px;
-        cursor: pointer;
-        transition: 0.3s;
-
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-      // EPISODE TITLE
-      .title {
-        line-height: 2rem;
-        height: 2rem;
-        font-size: 1.1rem;
-        font-weight: 500;
-        opacity: 0.7;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      // EPISODE META DATA
-      .meta {
-        margin-top: -5px;
-        margin-right: 45px;
-        opacity: 0.5;
-
-        .date, .desc-toggle {
-          font-size: 0.8rem;
-          font-weight: bold;
-        }
-        .dot {
-          font-size: 2rem;
-          vertical-align: middle;
-        }
-        .desc-toggle {
-          cursor: pointer;
-          transition: 0.5s;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-      // EPISODE DESCRIPTION
-      .description {
-        height: 0;
-        font-size: 0.9rem;
-        overflow-y: scroll;
-        text-align: left;
-        opacity: 0.6;
-        font-weight: 500;
-        transition: 0.3s;
-
-        a {
-          font-style: italic;
-          text-decoration: underline;
-        }
-        img, audio, iframe {
-          display: none;
-        }
-        &.show {
-          height: 10rem;
-        }
-      }
-
-      & .light {
-        background-color: lighten($bg-color, 1%);
-        transition: 0.3s;
-      }
-      & .dark {
-        background-color: $bg-color;
-        transition: 0.3s;
-      }
-      &:hover {
-        background-color: darken($bg-color, 2%);
-      }
-    }
-    // LOAD MORE
-    .load-more {
-      width: 100%;
-      height: 100px;
-      text-align: center;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      opacity: 0.5;
-      padding-top: 20px;
-      transition: 0.3s;
-
-      &:hover {
-        background-color: darken($bg-color, 4%);
-        text-decoration: underline;
-        opacity: 0.6;
-      }
-    }
+  a {
+    font-style: italic;
+    text-decoration: underline;
+  }
+  img, audio, iframe {
+    display: none;
+  }
+  &.show {
+    height: 10rem;
   }
 }

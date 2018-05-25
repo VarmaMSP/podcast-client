@@ -95,7 +95,7 @@ class Episodes extends Component<Props, State> {
 }
 
 const renderEpisode = (onPlay, onDescToggle, descId) => (episode: Episode, i: number) => (
-  <div className={'episode ' + (i % 2 ? 'dark' : 'light')} key={i}>
+  <div className={'episode'} key={i}>
     <img className='play-icon' src='/img/play-circle.png' onClick={onPlay(episode)}/>
     <div className='title'>{episode.title}</div>
     <div className='meta'>
