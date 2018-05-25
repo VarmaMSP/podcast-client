@@ -1,4 +1,4 @@
-header {
+.nav-bar {
   position: fixed;
   top: 0;
   width: 100%;
@@ -6,66 +6,70 @@ header {
   border-bottom: $border;
   background-color: $primary-color;
   z-index: 10000;
+}
 
-  // SITE LOGO
-  .logo {
-    display: block;
-    float: left;
-    width: 200px;
-    height: $header-height;
-    line-height: $header-height;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #b20000;
-    text-align: left;
-  }
-  // APP NAVIGATION LINKS
-  .link {
-    display: block;
-    float: left;
-    height: $header-height;
-    line-height: $header-height;
-    font-size: 1rem;
-    font-weight: 500;
-    opacity: 0.7;
-    margin-right: 0.6rem;
-    margin-left: 0.6rem;
-    cursor: pointer;
-    transition: 0.3s;
+/**
+--- Logo -----------------------------------------
+**/
+.nav-bar .logo {
+  display: block;
+  float: left;
+  width: 200px;
+  height: $header-height;
+  line-height: $header-height;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #b20000;
+  text-align: left;
+}
 
-    .notify {
-      margin-left: 3px;
-      display: inline;
-      vertical-align: top;
-      font-size: 2rem;
-      color: darken(red, 50%);
-      animation: blink 1s linear infinite;
-    }
+/**
+--- Links ----------------------------------------
+**/
+.nav-bar .link {
+  display: block;
+  float: left;
+  height: $header-height;
+  line-height: $header-height;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.7;
+  margin: 0 0.6rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.nav-bar .link .notify {
+  margin-left: 3px;
+  display: inline;
+  vertical-align: top;
+  font-size: 2rem;
+  color: darken(red, 50%);
+  animation: blink 1s linear infinite;
+}
+.nav-bar .link.active {
+  border-bottom: 3px solid darken($primary-color, 70%);
+}
+.nav-bar .link:hover {
+  opacity: 1;
+}
 
-    &:hover {
-      opacity: 1;
-    }
-    &.active {
-      border-bottom: 3px solid darken($primary-color, 70%);
-    }
-  }
-  // SEARCH INPUT
-  .search {
-    display: block;
-    float: right;
-    width: 400px;
-    height: $header-height;
-    padding-top: 0.4rem;
-    margin-left: 3%;
-
-    input[type="text"] {
-      width: 100%;
-      height: 2rem;
-      padding: 0.5rem 1rem;
-      border-radius: 3px;
-      border: 1px solid darken(#DCDCDC, 20%);
-      background-color: lighten($primary-color, 5%);
-      font-size: 1rem;
-    }
-  }
+/**
+--- Search Bar -----------------------------------
+**/
+.nav-bar .search {
+  display: block;
+  float: right;
+  width: 400px;
+  height: $header-height;
+  padding-top: 0.4rem;
+  margin-left: 3%;
+}
+.nav-bar .search input[type="text"] {
+  width: 100%;
+  height: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  border: 1px solid darken(#DCDCDC, 20%);
+  background-color: lighten($primary-color, 5%);
+  font-size: 1rem;
 }

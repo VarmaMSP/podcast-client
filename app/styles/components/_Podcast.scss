@@ -5,7 +5,7 @@
 }
 
 /**
---- Details ----------------------------------------
+--- Details -------------------------------------
 **/
 .podcast .details {
   position: sticky;
@@ -51,7 +51,7 @@
 }
 
 /**
---- Episodes List ----------------------------------------
+--- Episodes List -------------------------------
 **/
 .episodes > .loader {
   @include loader(relative, 5rem, 0.5rem, darken($primary-color, 20%));

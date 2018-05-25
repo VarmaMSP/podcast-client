@@ -15,7 +15,7 @@ type Props = {|
 const Links = ({history, feedNotification}: Props) => {
   let pathname = history.location ? history.location.pathname : undefined;
   return (
-    <div className='links'>
+    <div>
       <div className={`link ${pathname === '/subscriptions' ? 'active' : ''}`}
         onClick={e => pathname !== '/subscriptions' ? history.push('/subscriptions') : undefined}>
         {'Subscriptions'}

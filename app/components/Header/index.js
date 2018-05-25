@@ -6,13 +6,13 @@ import Links from './Links';
 import Search from './Search';
 
 const Header = () => (
-  <header>
+  <div className='nav-bar'>
     <div className='container'>
       <Logo/>
       <Links/>
       <Search/>
     </div>
-  </header>
+  </div>
 );
 
 export default Header;
