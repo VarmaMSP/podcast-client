@@ -5,7 +5,7 @@ export type Podcast = {|
   artist: string,
   imageUrl: string,
   feedUrl: string
-|};
+|}
 
 export type Episode = {|
   title: string,
@@ -13,15 +13,15 @@ export type Episode = {|
   date: string,
   link: string,
   fileType: string
-|};
+|}
 
 export type AudioData = {|
   episode: Episode,
   podcast: Podcast
-|};
+|}
 
 export type FeedScheme = {|
   podcastId: number,
   lastModified: string,
   episodes: Array<Episode>
-|};
+|}

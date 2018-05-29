@@ -1,9 +1,9 @@
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const basePath = __dirname;
+const basePath = __dirname
 
-//JSX WEBPACK CONFIG
+// JSX WEBPACK CONFIG
 const jsConfig = env => ({
   entry: path.resolve(basePath, 'app', 'index.js'),
   output: {
@@ -34,9 +34,9 @@ const jsConfig = env => ({
     net: 'empty',
     tls: 'empty'
   }
-});
+})
 
-//SCSS WEBPACK CONFIG
+// SCSS WEBPACK CONFIG
 const scssConfig = env => ({
   entry: path.resolve(basePath, 'app', 'index.scss'),
   output: {
@@ -62,6 +62,6 @@ const scssConfig = env => ({
       filename: 'index.css'
     })
   ]
-});
+})
 
-module.exports = env => [jsConfig(env), scssConfig(env)];
+module.exports = env => [jsConfig(env), scssConfig(env)]

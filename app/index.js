@@ -1,54 +1,53 @@
 // @flow
-import type {Store, State} from './types/index';
+import type {Store, State} from './types/index'
 
-import 'regenerator-runtime/runtime';
+import 'regenerator-runtime/runtime'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
-import {Provider} from 'react-redux';
-import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {createStore, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
+import {Provider} from 'react-redux'
+import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 
-import reducers from './reducers';
-import Home from './components/Home';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Feed from './components/Feed';
-import Podcast from './components/Podcast';
-import SearchResults from './components/SearchResults';
-import Subscriptions from './components/Subscriptions';
-import {loadState, saveState} from './utils/localStorage';
-import {refreshUserFeed} from './api/rssFeed';
+import reducers from './reducers'
+import Home from './components/Home'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Feed from './components/Feed'
+import Podcast from './components/Podcast'
+import SearchResults from './components/SearchResults'
+import Subscriptions from './components/Subscriptions'
+import {loadState, saveState} from './utils/localStorage'
+import {refreshUserFeed} from './api/rssFeed'
 
-
-const prevState: State = loadState();
-const store: Store = createStore(reducers, prevState, applyMiddleware(thunk));
+const prevState: State = loadState()
+const store: Store = createStore(reducers, prevState, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-        <Header/>
+        <Header />
         <div className='main-content container'>
           <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/podcast' component={Podcast}/>
-            <Route exact path='/subscriptions' component={Subscriptions}/>
-            <Route exact path='/feed' component={Feed}/>
-            <Route exact path='/results' component={SearchResults}/>
-            <Redirect to='/feed'/>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/podcast' component={Podcast} />
+            <Route exact path='/subscriptions' component={Subscriptions} />
+            <Route exact path='/feed' component={Feed} />
+            <Route exact path='/results' component={SearchResults} />
+            <Redirect to='/feed' />
           </Switch>
         </div>
-        <input type='checkbox' style={{display: 'none'}} id='footer-state'/>
-        <Footer/>
+        <input type='checkbox' style={{display: 'none'}} id='footer-state' />
+        <Footer />
       </div>
     </Router>
   </Provider>,
   (document.getElementById('app'): any)
-);
+)
 
-store.subscribe(() => saveState(store.getState()));
+store.subscribe(() => saveState(store.getState()))
 
-refreshUserFeed(store)();
-setInterval(refreshUserFeed(store), 900000);
+refreshUserFeed(store)()
+setInterval(refreshUserFeed(store), 900000)
