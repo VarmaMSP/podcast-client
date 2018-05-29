@@ -1,8 +1,7 @@
 # [Phenopod](http://phenopod.com)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
-Phenopod is a minimalist podcast player that allows you to search and stream your favourite podcasts in browser.
+A minimalistic podcast player that allows to search and stream podcasts from your browser.
 
 ![alt text](https://raw.githubusercontent.com/VarmaMSP/phenopod/master/screenshot.png "Screenshot")
 
@@ -26,3 +25,12 @@ yarn setup
 yarn build:dev
 ```
 Open your browser at: http://localhost:8081
+
+## Code Style
+[![JavaScript Style Guide][standard-image]][standard-url]
+
+This project uses [`standard`][standard-url] to maintain code style and consistency. 
+`yarn test` runs `standard` automatically.
+
+[standard-image]: https://cdn.rawgit.com/standard/standard/master/badge.svg
+[standard-url]: https://github.com/standard/standard
