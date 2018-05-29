@@ -1,5 +1,6 @@
 # [Phenopod](http://phenopod.com)
-> A podcast player that runs entirely in your browser.
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
 Phenopod is a minimalist podcast player that allows you to search and stream your favourite podcasts in browser.
 
