@@ -1,5 +1,5 @@
 // @flow
-import type {Podcast, Episode, AudioData} from '../types/podcast'
+import type {Podcast, AudioData} from '../types/podcast'
 import type {
   PodcastAction,
   NowPlayingAction,
@@ -21,12 +21,7 @@ const podcastReducer = (state: ?Podcast = null, action: PodcastAction): ?Podcast
 }
 
 /* NOW PLAYING REDUCER */
-type NowPlayingState = {
-  episode: Episode,
-  podcast: Podcast
-};
-
-const nowPlayingReducer = (state: ?NowPlayingState = null, action: NowPlayingAction): ?NowPlayingState => {
+const nowPlayingReducer = (state: ?AudioData = null, action: NowPlayingAction): ?AudioData => {
   switch (action.type) {
     case 'SELECT_EPISODE':
       return action.data

@@ -1,9 +1,9 @@
 // @flow
-import React from 'react';
+import React from 'react'
 
 // Spinner
 export const Loader = () =>
-  <div className='loader'></div>;
+  <div className='loader' />
 
 // Message
 export const Message = (props: {| content: string |}) =>

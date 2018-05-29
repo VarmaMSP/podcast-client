@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React from 'react'
 
 type Props = {
   src: string
@@ -7,8 +7,8 @@ type Props = {
 
 const Albumart = ({ src }: Props) => (
   <div className='album-art'>
-    <img src={`${src}/250x250.jpg`}/>
+    <img src={`${src}/250x250.jpg`} />
   </div>
-);
+)
 
-export default Albumart;
+export default Albumart

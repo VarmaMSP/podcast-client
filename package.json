@@ -6,7 +6,7 @@
   "author": "pavan varma(varmamsp)",
   "license": "MIT",
   "scripts": {
-    "test": "standard --fix",
+    "test": "standard --verbose",
     "setup": "yarn install && flow-typed install",
     "build:dev": "node webpack.server.js",
     "build:prod": "webpack -p"

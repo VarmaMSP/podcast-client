@@ -20,11 +20,8 @@ Install yarn globally before setup.
 
 ```sh
 git clone https://github.com/VarmaMSP/phenopod.git
-
 cd phenopod
-
 yarn setup
-
 yarn build:dev
 ```
 Open your browser at: http://localhost:8081

@@ -1,11 +1,11 @@
 // @flow
-import type {State as ReduxState, Dispatch, Action} from '../../types/index';
-import type {Podcast, Episode, AudioData} from '../../types/podcast';
+import type {State as ReduxState, Dispatch, Action} from '../../types/index'
+import type {Podcast, Episode, AudioData} from '../../types/podcast'
 
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {selectEpisode, hideFeedNotification} from '../../actions/index';
-import {formatDate, timeElapsed} from '../../utils/utils';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {selectEpisode, hideFeedNotification} from '../../actions/index'
+import {formatDate, timeElapsed} from '../../utils/utils'
 
 type Props = {|
   feed: Array<AudioData>,
@@ -19,68 +19,68 @@ type State = {|
 |};
 
 class Feed extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  constructor (props: Props) {
+    super(props)
     this.state = {
       descId: undefined,
       count: 10
-    };
+    }
   }
 
-  componentDidMount() {
-    this.props.hideFeedNotification();
+  componentDidMount () {
+    this.props.hideFeedNotification()
   }
 
-  handleDescToggle(id: number) {
-    return (e: SyntheticEvent<HTMLElement>) => {
-      let { descId } = this.state;
-      this.setState({descId: descId !== id ? id : undefined});
-    };
+  handleDescToggle (id: number) {
+    return (e: SyntheticEvent<HTMLElement>) => { // eslint-disable-line no-undef
+      let { descId } = this.state
+      this.setState({descId: descId !== id ? id : undefined})
+    }
   }
 
-  handlePlay(data: AudioData) {
-    return (e: SyntheticEvent<HTMLElement>) => {
-      let { playEpisode } = this.props;
-      playEpisode(data.podcast, data.episode);
-    };
+  handlePlay (data: AudioData) {
+    return (e: SyntheticEvent<HTMLElement>) => { // eslint-disable-line no-undef
+      let { playEpisode } = this.props
+      playEpisode(data.podcast, data.episode)
+    }
   }
 
-  handleLoadMore(e: SyntheticEvent<HTMLElement>) {
-    let { count } = this.state;
-    this.setState({ count: count + 10 });
+  handleLoadMore (e: SyntheticEvent<HTMLElement>) { // eslint-disable-line no-undef
+    let { count } = this.state
+    this.setState({ count: count + 10 })
   }
 
-  render() {
-    let { feed } = this.props;
-    let { descId, count } = this.state;
-    let onPlay = this.handlePlay.bind(this);
-    let onLoadMore = this.handleLoadMore.bind(this);
-    let onDescToggle = this.handleDescToggle.bind(this);
+  render () {
+    let { feed } = this.props
+    let { descId, count } = this.state
+    let onPlay = this.handlePlay.bind(this)
+    let onLoadMore = this.handleLoadMore.bind(this)
+    let onDescToggle = this.handleDescToggle.bind(this)
     return (
       feed.length > 0
         ? <div className='feed'>
-            <div className='header'>{'Your Feed'}</div>
-            {feed.slice(0, count).map(renderFeedItem(onPlay, onDescToggle, descId))}
-            { count < feed.length
+          <div className='header'>{'Your Feed'}</div>
+          {feed.slice(0, count).map(renderFeedItem(onPlay, onDescToggle, descId))}
+          { count < feed.length
             ? <div className='load-more' onClick={onLoadMore}> load more episodes. </div>
             : undefined
-            }
-          </div>
+          }
+        </div>
         : <div className='header info'>
-            {"Your Feed is Empty, subscribe to a podcast to get started"}
-          </div>
+          {'Your Feed is Empty, subscribe to a podcast to get started'}
+        </div>
     )
   }
 }
 
 const renderFeedItem = (onPlay, onDescToggle, descId) => (feed: AudioData, i: number) => (
   <div className={'feed-item ' + (i % 2 ? 'dark' : 'light') + (descId === i ? ' show' : '')} key={i}>
-    <img className='albumart' src={feed.podcast.imageUrl + '/200x200.jpg'}/>
+    <img className='albumart' src={feed.podcast.imageUrl + '/200x200.jpg'} />
     <div style={{float: 'right'}}>
-      <img className='play-icon' src='/img/play-circle.png' onClick={onPlay(feed)}/>
+      <img className='play-icon' src='/img/play-circle.png' onClick={onPlay(feed)} />
       { timeElapsed(feed.episode.date) <= (24 * 60)
-      ? <div className='tag'>{'new'}</div>
-      : undefined
+        ? <div className='tag'>{'new'}</div>
+        : undefined
       }
     </div>
     <div className='details'>
@@ -102,11 +102,11 @@ const renderFeedItem = (onPlay, onDescToggle, descId) => (feed: AudioData, i: nu
 
 const mapStatetoProps = ({userFeed}: ReduxState) => ({
   feed: userFeed
-});
+})
 
 const mapDispatchtoProps = (dispatch: Dispatch) => ({
   playEpisode: (p: Podcast, e: Episode) => dispatch(selectEpisode(p, e)),
   hideFeedNotification: () => dispatch(hideFeedNotification())
-});
+})
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(Feed);
+export default connect(mapStatetoProps, mapDispatchtoProps)(Feed)

@@ -18,7 +18,7 @@ export function refreshUserFeed (store: Store) {
     let subscriptions: Array<Podcast> = store.getState().subscriptions
     try {
       let persistedFeeds: Array<FeedScheme> = await Promise.all(subscriptions.map(p => selectFeed(p.id)))
-      for (let i = 0; i < persistedFeeds.length; ++i) {
+      for (let i = 0; i < subscriptions.length; ++i) {
         let cache: FeedScheme = persistedFeeds[i]
         if (timeElapsed(cache.lastModified) >= CACHE_TIME) {
           let episodes = await getEpisodes({url: subscriptions[i].feedUrl, method: 'GET'})
