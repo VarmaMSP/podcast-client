@@ -1,0 +1,34 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination .page,
+.pagination .arrow {
+  width: 35px;
+  height: 35px;
+  border: 1px solid $primary-color;
+  border-radius: 3px;
+  box-shadow: 0px 1px 1px 1px rgba(159,167,194,0.5);
+  cursor: pointer;
+}
+
+.pagination .arrow {
+  opacity: 0.7;
+}
+
+.pagination .arrow.disable {
+  opacity: 0.3;
+}
+
+.pagination .page {
+  line-height: 35px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 4px;
+}
+
+.pagination .page.active {
+  background-color: darken($primary-color, 5%);
+}

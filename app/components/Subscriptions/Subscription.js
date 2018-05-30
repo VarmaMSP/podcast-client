@@ -23,11 +23,11 @@ const Subscription = ({podcast, history, selectPodcast, unsubscribe}: Props) => 
   return (
     <div className='subscription'>
       <img src={`${podcast.imageUrl}/200x200.jpg`} onClick={onSelect} />
-      <div className='unsubscribe-button' onClick={e => unsubscribe(podcast)}>
+      <div className='unsubscribe-button' onClick={() => unsubscribe(podcast)}>
         {'UNSUBSCRIBE'}
       </div>
       <div className='details'>
-        <div className='title' onClick={onSelect}>{podcast.title}</div>
+        <div className='podcast-title' onClick={onSelect}>{podcast.title}</div>
         <div className='artist'><small>{'by '}</small>{podcast.artist}</div>
       </div>
     </div>

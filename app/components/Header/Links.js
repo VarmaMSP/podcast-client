@@ -16,17 +16,21 @@ const Links = ({history, feedNotification}: Props) => {
   let pathname = history.location ? history.location.pathname : undefined
   return (
     <div>
-      <div className={`link ${pathname === '/subscriptions' ? 'active' : ''}`}
-        onClick={e => pathname !== '/subscriptions' ? history.push('/subscriptions') : undefined}>
-        {'Subscriptions'}
+      <div className={`link ${pathname === '/' ? 'active' : ''}`}
+        onClick={() => pathname !== '/' ? history.push('/') : undefined}>
+        {'Home'}
       </div>
       <div className={`link ${pathname === '/feed' ? 'active' : ''}`}
-        onClick={e => pathname !== '/feed' ? history.push('/feed') : undefined}>
+        onClick={() => pathname !== '/feed' ? history.push('/feed') : undefined}>
         {'Feed'}
         { feedNotification
           ? <div className='notify'>•</div>
           : undefined
         }
+      </div>
+      <div className={`link ${pathname === '/subscriptions' ? 'active' : ''}`}
+        onClick={() => pathname !== '/subscriptions' ? history.push('/subscriptions') : undefined}>
+        {'Subscriptions'}
       </div>
     </div>
   )

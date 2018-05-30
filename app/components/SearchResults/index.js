@@ -14,7 +14,7 @@ import {Loader, Message} from '../generic/Utils'
 
 type Props = {|
   history: RouterHistory,
-  selectPodcast: Podcast => any;
+  selectPodcast: Podcast => any
 |};
 
 type State = {|

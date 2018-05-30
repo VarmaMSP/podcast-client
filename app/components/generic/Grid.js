@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 
-/** ** GRID ****/
+/** GRID **/
 type Props = {|
   children: Array<{|
     img: string,

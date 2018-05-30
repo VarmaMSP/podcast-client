@@ -1,34 +1,94 @@
 // @flow
-import type {State} from '../../types/index'
+import type {RouterHistory} from 'react-router-dom'
+import type {Podcast} from '../../types/podcast'
+import type {Dispatch} from '../../types/index'
 
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
+import {Grid} from '../generic/Grid'
+import {Loader} from '../generic/Utils'
+import {Pagination} from '../generic/Pagination'
+import getTrending from '../../api/trending'
+import {selectPodcast} from '../../actions/index'
 
 type Props = {|
-  redirect: boolean
+  history: RouterHistory,
+  selectPodcast: Podcast => any
 |}
 
-const Home = ({redirect}: Props) =>
-  redirect
-    ? <Redirect to='/feed' />
-    : <div className='welcome'>
-      <b>{'Welcome!'}</b>
-      <p>{"Phenopod helps you to search, subscribe and listen to you favourite podcasts.Here's some stuff"}
-        <br />
-        {'you need to know, before getting started.'}
-      </p>
-      <ol>
-        <li>{'Search for your favourite podcasts in the top right search bar.'}</li>
-        <li>{'Phenopod uses browsers local storage and indexedDB to store your preferences. cool right!'}</li>
-        <li>{"Phenopod is free and it's source code is"} <a href='https://github.com/VarmaMSP/phenopod' target='_blank'><u>{'open source.'}</u></a></li>
-        <li>{'Hope you like the user interface.'}</li>
-      </ol>
-      <p>{'Enjoy listening to podcasts!'}</p>
-    </div>
+type State = {|
+  podcasts: Array<Podcast>,
+  loading: boolean,
+  count: number,
+  offset: number
+|}
 
-const mapStatetoProps = ({subscriptions}: State) => ({
-  redirect: subscriptions.length > 0
+class Home extends Component<Props, State> {
+  constructor (props: Props) {
+    super(props)
+    this.state = {
+      podcasts: [],
+      loading: true,
+      count: 10,
+      offset: 0
+    }
+  }
+
+  componentDidMount () {
+    getTrending()
+      .then(x => this.setState({
+        podcasts: x,
+        loading: false
+      }))
+      .catch(console.log)
+  }
+
+  handlePaginate (pageNo: number) {
+    return () => {
+      this.setState({offset: pageNo})
+    }
+  }
+
+  handlePodcastSelect (result: Podcast) {
+    let { history, selectPodcast } = this.props
+    return () => {
+      selectPodcast(result)
+      history.push('/podcast')
+    }
+  }
+
+  render () {
+    let { podcasts, loading, count, offset } = this.state
+    let onPaginate = this.handlePaginate.bind(this)
+    let onSelect = this.handlePodcastSelect.bind(this)
+    return (
+      loading
+        ? <Loader />
+        : <div>
+          <div className='welcome'>
+            {'Welcome, you can search, subscribe and listen to you favourite podcasts here. Get Started by checking out these trending podcasts.'}
+          </div>
+          <br />
+          <Grid>{
+            podcasts.slice(offset * count, (offset + 1) * count).map(p => ({
+              img: p.imageUrl + '/200x200.jpg',
+              header: p.title,
+              description: p.artist,
+              onClick: onSelect(p)
+            }))
+          }</Grid>
+          <br />
+          <Pagination total={Math.ceil(podcasts.length / count)} current={offset} paginate={onPaginate} />
+        </div>
+    )
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  selectPodcast: (podcast: Podcast) => dispatch(selectPodcast(podcast))
 })
 
-export default connect(mapStatetoProps, null)(Home)
+export default withRouter(
+  connect(null, mapDispatchToProps)(Home)
+)
