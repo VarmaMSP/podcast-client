@@ -13,7 +13,7 @@ type Props = {|
   isSubscribed: boolean,
   podcast: Podcast,
   playEpisode: (Podcast, Episode) => Action
-|};
+|}
 
 type State = {|
   loading: boolean,
@@ -21,7 +21,7 @@ type State = {|
   episodes: Array<Episode>,
   count: number,
   descId: ?number
-|};
+|}
 
 class Episodes extends Component<Props, State> {
   constructor (props: Props) {

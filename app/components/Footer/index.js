@@ -10,7 +10,7 @@ import Player from './Player'
 type Props = {|
   podcast: ?Podcast,
   episode: ?Episode
-|};
+|}
 
 const Footer = ({ podcast, episode }: Props) => (
   <footer style={podcast && episode ? {} : {height: '0'}}>

@@ -9,7 +9,7 @@ type Props = {|
     description: string,
     onClick: SyntheticEvent<HTMLElement> => void // eslint-disable-line no-undef
   |}>
-|};
+|}
 
 export const Grid = ({children}: Props) => (
   <div className='grid'>

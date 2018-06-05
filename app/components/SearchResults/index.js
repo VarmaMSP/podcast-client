@@ -15,13 +15,13 @@ import {Loader, Message} from '../generic/Utils'
 type Props = {|
   history: RouterHistory,
   selectPodcast: Podcast => any
-|};
+|}
 
 type State = {|
   results: Array<Podcast>,
   loading: boolean,
   error: boolean
-|};
+|}
 
 class SearchResults extends Component<Props, State> {
   constructor (props: Props) {

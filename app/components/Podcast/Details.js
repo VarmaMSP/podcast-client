@@ -12,7 +12,7 @@ type Props = {|
   isSubscribing: boolean,
   subscribe: Podcast => Action,
   unsubscribe: Podcast => Action
-|};
+|}
 
 const Details = (props: Props) => {
   let { podcast, subscribed, isSubscribing } = props

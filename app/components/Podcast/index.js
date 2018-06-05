@@ -12,7 +12,7 @@ type Props = {|
   podcast: ?PodcastType,
   subscribed: boolean,
   isSubscribing: boolean
-|};
+|}
 
 const Podcast = ({ podcast, subscribed, isSubscribing }: Props) => podcast
   ? <div className='podcast'>

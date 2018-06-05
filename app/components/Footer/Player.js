@@ -6,14 +6,14 @@ import {formatDate} from '../../utils/utils'
 type Props = {|
   podcastTitle: string,
   episode: Episode
-|};
+|}
 
 type State = {|
   status: 'PLAY' | 'PAUSE' | 'LOAD' | 'SEEK',
   duration: number,
   currentTime: number,
   reload: boolean
-|};
+|}
 
 const audio: any = document.createElement('audio')
 

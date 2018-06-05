@@ -55,39 +55,39 @@ footer .player {
 }
 
 // Episode Details
-footer .player .details {
+.player > .details {
   margin-right: 100px; //Make text from overflowing into controls
   font-size: 1rem;
 }
-footer .player .details .now-playing {
+.player > .details .now-playing {
   font-weight: 800;
   opacity: 0.4;
 }
-footer .player .details .episode-title,
-footer .player .details .episode-details {
+.player > .details .episode-title,
+.player > .details .episode-details {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-footer .player .details .episode-title {
+.player > .details .episode-title {
   font-size: 1.1rem;
   font-weight: 700;
   opacity: 0.75;
   margin: 5px 0 -5px 0;
 }
-footer .player .details .episode-details .date,
-footer .player .details .episode-details .podcast-title {
+.player > .details .episode-details .date,
+.player > .details .episode-details .podcast-title {
   font-weight: 600;
   opacity: 0.55;
 }
-footer .player .details .episode-details .dot {
+.player > .details .episode-details .dot {
   font-size: 2rem;
   vertical-align: middle;
   opacity: 0.6;
 }
 
 // Audio Player
-footer .audio {
+.player > .audio {
   display: flex;
   opacity: 0;
   width: 100%;
@@ -96,19 +96,19 @@ footer .audio {
   margin-left: -10px;
   transition: $trans-time * 2;
 }
-footer .audio #play-icon {
+.player > .audio #play-icon {
   height: 100%;
   opacity: 0.65;
   cursor: pointer;
   flex: 0 0 45px;
 }
-footer .audio #playback-slider {
+.player > .audio #playback-slider {
   height: 100%;
   vertical-align: middle;
   margin: 0 0.5rem 0 0.2rem;
   flex: 1 1 auto;
 }
-footer .audio #time {
+.player > .audio #time {
   height: $audio-height;
   line-height: $audio-height;
   font-size: 1rem;
@@ -118,45 +118,11 @@ footer .audio #time {
   flex: 0 0 140px;
 }
 
-
-//AUDIO PLAYER
-.audio {
-  display: flex;
-  opacity: 0;
-  width: 100%;
-  height: $audio-height;
-  margin-top: 25px;
-  margin-left: -10px;
-  transition: $trans-time * 2;
-
-  #play-icon {
-    height: 100%;
-    opacity: 0.65;
-    cursor: pointer;
-    flex: 0 0 45px;
-  }
-  #playback-slider {
-    height: 100%;
-    vertical-align: middle;
-    margin: 0 0.5rem 0 0.2rem;
-    flex: 1 1 auto;
-  }
-  #time {
-    height: $audio-height;
-    line-height: $audio-height;
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: right;
-    opacity: 0.5;
-    flex: 0 0 140px;
-  }
-}
-
 // Loading Overlay
-footer .audio.overlay .controls {
+.player > .audio.overlay .controls {
   display: none;
 }
-footer .audio.overlay .player {
+.player > .audio.overlay .player {
   background-color: $bg-color;
   -webkit-filter: blur(4px);
           filter: blur(4px);

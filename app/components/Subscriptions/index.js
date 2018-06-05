@@ -12,7 +12,7 @@ type Props = {|
   match: Match,
   history: RouterHistory,
   subscriptions: Array<Podcast>
-|};
+|}
 
 const Subscriptions = ({subscriptions, history} : Props) => (
   subscriptions.length > 0

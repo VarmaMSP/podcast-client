@@ -44,7 +44,7 @@ export function parseQueryString (queryString: string): Object {
   return queryObj
 }
 
-export function returnAfter (time: number, x: mixed): Promise<mixed> {
+export function returnAfter (time: number, x: mixed): Promise<any> {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve(x), time)
   })

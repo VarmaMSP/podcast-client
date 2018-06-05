@@ -11,12 +11,12 @@ type Props = {|
   feed: Array<AudioData>,
   playEpisode: (Podcast, Episode) => Action,
   hideFeedNotification: () => Action
-|};
+|}
 
 type State = {|
   descId: ?number,
   count: number
-|};
+|}
 
 class Feed extends Component<Props, State> {
   constructor (props: Props) {

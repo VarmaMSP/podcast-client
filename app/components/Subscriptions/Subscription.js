@@ -13,7 +13,7 @@ type Props = {|
   history: RouterHistory,
   selectPodcast: Podcast => Action,
   unsubscribe: Podcast => Action
-|};
+|}
 
 const Subscription = ({podcast, history, selectPodcast, unsubscribe}: Props) => {
   let onSelect = (e: SyntheticEvent<HTMLElement>) => { // eslint-disable-line no-undef

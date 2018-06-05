@@ -6,11 +6,11 @@ import {withRouter} from 'react-router-dom'
 type Props = {|
   match: Match,
   history: RouterHistory
-|};
+|}
 
 type State = {|
   searchTerm: string
-|};
+|}
 
 class Search extends Component<Props, State> {
   constructor () {
