@@ -17,7 +17,7 @@ export const subscribeToPodcast = (podcast: Podcast) => (dispatch: Dispatch) => 
   dispatch(beginAddingNewSubscrition())
   getEpisodes({url: podcast.feedUrl, method: 'GET'})
     .then(episodes => {
-      dispatch(updateUserFeed(episodes.slice(0, 4).map(e => ({episode: e, podcast}))))
+      dispatch(updateUserFeed(episodes.slice(0, 2).map(e => ({episode: e, podcast}))))
       return insertFeed({episodes, podcastId: podcast.id, lastModified: (new Date()).toString()})
     })
     .then(() => {
