@@ -12,7 +12,6 @@ type State = {|
   status: 'PLAY' | 'PAUSE' | 'LOAD' | 'SEEK',
   duration: number,
   currentTime: number,
-  volume: number,
   reload: boolean
 |};
 
@@ -25,7 +24,6 @@ export default class Audio extends Component<Props, State> {
       status: 'LOAD',
       duration: 0,
       currentTime: 0,
-      volume: 1,
       reload: false
     }
     // handle pause and play
@@ -120,17 +118,10 @@ export default class Audio extends Component<Props, State> {
     audio.currentTime = seekTime
   }
 
-  handleVolumeChange (e: SyntheticInputEvent<HTMLInputElement>) { // eslint-disable-line no-undef
-    let volume = Number(e.target.value)
-    audio.volume = volume
-    this.setState({volume})
-  }
-
   render () {
-    let { duration, currentTime, volume, status } = this.state
+    let { duration, currentTime, status } = this.state
     let { podcastTitle, episode } = this.props
     let { title, date } = episode
-
     let playIconSrc = status === 'PLAY' ? '/img/pause.png' : '/img/play.png'
 
     return (
@@ -162,12 +153,6 @@ export default class Audio extends Component<Props, State> {
               onChange={this.handleSeek.bind(this)}
             />
             <span id='time'>{`${formatTime(currentTime)} / ${formatTime(duration)}`}</span>
-            <img src='/img/volume.png' id='volume-icon' />
-            <input type='range' id='volume-slider'
-              min='0' max='1'
-              step='0.1' value={volume}
-              onChange={this.handleVolumeChange.bind(this)}
-            />
           </div>
         </div>
       </div>
