@@ -20,7 +20,7 @@ export function refreshUserFeed (store: Store) {
     for (let i = 0; i < subscriptions.length; ++i) {
       let sub = subscriptions[i]
       try {
-        let cachedFeed = await selectFeed(sub.id)
+        let cachedFeed: FeedScheme = await selectFeed(sub.id)
         if (timeElapsed(cachedFeed.lastModified) >= CACHE_TIME) {
           let episodes = await getEpisodes({url: sub.feedUrl, method: 'GET'})
           await insertFeed({episodes, podcastId: sub.id, lastModified: (new Date()).toString()})
@@ -105,6 +105,7 @@ function parseXML (stream, callback: (mixed, Array<Episode>) => any) {
   stream.pipe(parser)
 }
 
+/** Parse episodes from feedburner HTML file **/
 function parseHTML (data): Array<Episode> {
   let episodes: Array<Episode> = []
   let elem = document.createElement('html'); elem.innerHTML = data
@@ -114,15 +115,21 @@ function parseHTML (data): Array<Episode> {
     if (e && e.firstChild) e.removeChild(e.firstChild)
   }
   for (let i = 0; i < nodes.length; ++i) {
-    try {
+    let n = nodes[i]
+    let title = n.querySelector('.itemtitle a')
+    let description = n.querySelector('.itemcontent')
+    let date = n.querySelector('.itemposttime')
+    let linkNode = n.querySelector('.podcastmediaenclosure a')
+    let link = linkNode ? linkNode.getAttribute('href') : undefined
+    if (title && description && date && link) {
       episodes.push({
-        title: nodes[i].querySelector('.itemtitle a').innerHTML,
-        description: nodes[i].querySelector('.itemcontent').innerHTML,
-        date: nodes[i].querySelector('.itemposttime').innerHTML,
-        link: nodes[i].querySelector('.podcastmediaenclosure a').getAttribute('href'),
+        title: title.innerHTML,
+        description: description.innerHTML,
+        date: date.innerHTML,
+        link: link,
         fileType: 'audio/mpeg'
       })
-    } catch (e) {
+    } else {
       continue
     }
   }
