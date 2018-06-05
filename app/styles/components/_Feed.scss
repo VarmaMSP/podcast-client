@@ -33,6 +33,11 @@ $feed-item-padding: 10px;
       height: 60px;
       opacity: 0.5;
       cursor: pointer;
+      transition: 0.1s;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
     .tag {
       width: 60px;

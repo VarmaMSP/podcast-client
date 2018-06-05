@@ -47,7 +47,7 @@ export async function fetchFeed (podcast: Podcast) {
     let isCacheExpired: boolean = !cache || timeElapsed(cache.lastModified) >= CACHE_TIME
     return isCacheExpired
       ? await getEpisodes({url: podcast.feedUrl, method: 'GET'})
-      : await returnAfter(400, cache.episodes)
+      : await returnAfter(250, cache.episodes)
   } catch (err) {
     console.log(err)
     throw err
