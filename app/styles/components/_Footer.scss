@@ -119,10 +119,10 @@ footer .player {
 }
 
 // Loading Overlay
-.player > .audio.overlay .controls {
+footer .overlay > .controls {
   display: none;
 }
-.player > .audio.overlay .player {
+footer .overlay > .player {
   background-color: $bg-color;
   -webkit-filter: blur(4px);
           filter: blur(4px);
