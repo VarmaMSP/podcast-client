@@ -34,6 +34,11 @@ export function refreshUserFeed (store: Store) {
       }
     }
     if (latestFeed.length > 0) {
+      latestFeed.sort((a, b) => {
+        let aTime = new Date(a.episode.date)
+        let bTime = new Date(b.episode.date)
+        return aTime < bTime ? -1 : aTime < bTime ? 1 : 0
+      })
       dispatch(updateUserFeed(latestFeed))
       dispatch(showFeedNotification())
     }

@@ -46,39 +46,13 @@ const subscriptionsReducer = (state: Array<Podcast> = [], action: SubscriptionsA
 }
 
 /* USER FEED REDUCER */
-/* utility function to merge two descendingly sorted arrays */
-const merge = (a: Array<AudioData>, b: Array<AudioData>, getKey: AudioData => Date): Array<AudioData> => {
-  let i = 0
-  let j = 0
-  let l1 = a.length
-  let l2 = b.length
-  let c = []
-  while (i < l1 && j < l2) {
-    if (getKey(a[i]) > getKey(b[j])) {
-      c.push(a[i]); ++i
-    } else {
-      c.push(b[j]); ++j
-    }
-  }
-  if (i < l1) {
-    while (i < l1) {
-      c.push(a[i]); ++i
-    }
-  }
-  if (j < l2) {
-    while (j < l2) {
-      c.push(b[j]); ++j
-    }
-  }
-  return c
-}
-
 const userFeedReducer = (state: Array<AudioData> = [], action: UserFeedAction): Array<AudioData> => {
   switch (action.type) {
     case 'UPDATE_USER_FEED':
-      return merge(action.items, state, a => (new Date(a.episode.date)))
+      return [...action.items, ...state]
     case 'TRUNCATE_USER_FEED':
-      return state.filter(a => (a.podcast.id !== action.id))
+      let unsubscribedPodcastId = action.id
+      return state.filter(a => (a.podcast.id !== unsubscribedPodcastId))
     default:
       return state
   }
