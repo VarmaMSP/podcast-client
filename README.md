@@ -3,7 +3,7 @@
 
 A minimalistic podcast player that allows to search and stream podcasts from your browser.
 
-![alt text](https://raw.githubusercontent.com/VarmaMSP/phenopod/master/screenshot.png "Screenshot")
+![alt text](https://raw.githubusercontent.com/VarmaMSP/phenopod-client/master/screenshot.png "Screenshot")
 
 ## Tools
 This project uses the following open source projects.
