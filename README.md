@@ -1,4 +1,4 @@
-# [Phenopod](http://phenopod.com)
+# Podcast-Client
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 A minimalistic podcast player that allows to search and stream podcasts from your browser.
