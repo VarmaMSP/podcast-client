@@ -33,7 +33,7 @@
     "cheerio": "^1.0.0-rc.2",
     "css-loader": "^0.28.10",
     "eslint-plugin-flowtype": "^2.47.1",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "flow-bin": "^0.67.1",
     "flow-typed": "^2.3.0",
